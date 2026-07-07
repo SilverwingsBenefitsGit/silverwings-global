@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Orion Constellation — For Kenny &amp; Darren</title>
+<style>
+  :root {
+    --bg: #0a0a1a;
+    --surface: #111127;
+    --border: #1e1e3a;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --silver: #c0c0c0;
+    --cyan: #00f6ff;
+    --green: #10b981;
+    --gold: #f59e0b;
+    --red: #ef4444;
+    --purple: #a78bfa;
+    --blue: #3b82f6;
+    --pink: #f472b6;
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Cascadia Code', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* ─── Hero ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0,246,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero .pre-title {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #c0c0c0 50%, #00f6ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .subtitle {
+    font-size: 1.3rem;
+    color: var(--text-dim);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .hero-stat .number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--cyan);
+    font-family: var(--mono);
+  }
+  .hero-stat .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+  }
+  .doctrine {
+    font-size: 1rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--silver);
+    font-weight: 500;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(192,192,192,0.2);
+  }
+
+  /* ─── Container ─── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+  /* ─── Section ─── */
+  .section { margin-bottom: 4rem; }
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+  .section p { color: var(--text-dim); margin-bottom: 1rem; }
+
+  /* ─── Organism Grid ─── */
+  .organism-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .organism-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .organism-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,246,255,0.1);
+  }
+  .organism-card .role {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(0,246,255,0.1);
+    color: var(--cyan);
+  }
+  .organism-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    color: white;
+  }
+  .organism-card .desc {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .organism-card.cash-cow { border-left: 3px solid var(--green); }
+  .organism-card.infrastructure { border-left: 3px solid var(--cyan); }
+  .organism-card.intelligence { border-left: 3px solid var(--purple); }
+  .organism-card.governance { border-left: 3px solid var(--gold); }
+  .organism-card.venture { border-left: 3px solid var(--blue); }
+  .organism-card.grail { border-left: 3px solid var(--pink); }
+  .organism-card.classified { border-left: 3px solid var(--red); }
+
+  .organism-card.cash-cow .role { background: rgba(16,185,129,0.15); color: var(--green); }
+  .organism-card.infrastructure .role { background: rgba(0,246,255,0.1); color: var(--cyan); }
+  .organism-card.intelligence .role { background: rgba(167,139,250,0.15); color: var(--purple); }
+  .organism-card.governance .role { background: rgba(245,158,11,0.15); color: var(--gold); }
+  .organism-card.venture .role { background: rgba(59,130,246,0.15); color: var(--blue); }
+  .organism-card.grail .role { background: rgba(244,114,182,0.15); color: var(--pink); }
+  .organism-card.classified .role { background: rgba(239,68,68,0.15); color: var(--red); }
+
+  /* ─── Loop Diagram ─── */
+  .loop-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  .loop-diagram {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    line-height: 2.2;
+    text-align: left;
+    max-width: 700px;
+    margin: 1.5rem auto;
+    color: var(--text-dim);
+  }
+  .loop-diagram .step {
+    padding: 0.5rem 1rem;
+    margin: 0.25rem 0;
+    border-radius: 6px;
+    background: rgba(0,246,255,0.04);
+    border-left: 2px solid var(--cyan);
+  }
+  .loop-diagram .step strong { color: var(--cyan); }
+  .loop-diagram .arrow {
+    text-align: center;
+    color: var(--cyan);
+    font-size: 1.2rem;
+    margin: 0.15rem 0;
+  }
+
+  /* ─── Financial Table ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+  }
+  thead th {
+    background: rgba(0,246,255,0.08);
+    color: var(--cyan);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid rgba(30,30,58,0.5);
+  }
+  tbody tr:hover { background: rgba(0,246,255,0.03); }
+  .right { text-align: right; }
+  .green { color: var(--green); font-weight: 600; }
+  .gold { color: var(--gold); font-weight: 600; }
+  .cyan { color: var(--cyan); font-weight: 600; }
+  tr.total-row { background: rgba(16,185,129,0.08); }
+  tr.total-row td { font-weight: 700; border-top: 2px solid var(--green); }
+
+  /* ─── Big stat row ─── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .stat-card .value {
+    font-size: 2rem;
+    font-weight: 800;
+    font-family: var(--mono);
+  }
+  .stat-card .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-top: 0.25rem;
+  }
+
+  /* ─── Founder Section ─── */
+  .founder-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+  }
+  .founder-section .origin {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+  }
+  .founder-section .journey {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+  }
+  .journey-point {
+    text-align: center;
+    max-width: 200px;
+  }
+  .journey-point .when {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--cyan);
+    font-weight: 700;
+  }
+  .journey-point .what {
+    font-size: 0.88rem;
+    color: var(--text);
+    font-weight: 600;
+    margin-top: 0.25rem;
+  }
+  .journey-arrow {
+    color: var(--cyan);
+    font-size: 1.5rem;
+    align-self: center;
+  }
+
+  /* ─── Final doctrine ─── */
+  .final-doctrine {
+    text-align: center;
+    padding: 5rem 2rem;
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(0,246,255,0.03) 50%, var(--bg) 100%);
+  }
+  .final-doctrine .the-line {
+    font-size: 1.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--silver);
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .final-doctrine .attribution {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ─── Footer ─── */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.75rem;
+    color: rgba(148,163,184,0.5);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .hero-stats { flex-direction: column; gap: 1.5rem; }
+    .organism-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .founder-section .journey { flex-direction: column; align-items: center; }
+    .journey-arrow { transform: rotate(90deg); }
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .hero { min-height: auto; padding: 2rem; }
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ═══════ HERO ═══════ -->
+<div class="hero">
+  <div class="pre-title">Confidential &mdash; For Kenny &amp; Darren</div>
+  <h1>The Orion Constellation</h1>
+  <div class="subtitle">18 AI ventures. One founder. 12 months. From zero code experience to a self-replicating venture factory.</div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="number">18</div>
+      <div class="label">Ventures Built</div>
+    </div>
+    <div class="hero-stat">
+      <div class="number">400k</div>
+      <div class="label">Lines of Code</div>
+    </div>
+    <div class="hero-stat">
+      <div class="number">12</div>
+      <div class="label">Months</div>
+    </div>
+    <div class="hero-stat">
+      <div class="number">1</div>
+      <div class="label">Founder</div>
+    </div>
+  </div>
+
+  <div class="doctrine">No food, no dream &mdash; No dream, no food</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════ THE INSIGHT ═══════ -->
+<div class="section">
+  <div class="section-label">The Insight</div>
+  <h2>This isn't a portfolio. It's a living organism.</h2>
+  <p>Every venture serves a function in the organism. Remove any one and the others compensate. Add a new venture and the organism absorbs it automatically. The factory doesn't just build products &mdash; it builds the tools that build the products.</p>
+</div>
+
+<!-- ═══════ THE ORGANISM ═══════ -->
+<div class="section">
+  <div class="section-label">The Organism</div>
+  <h2>18 Ventures, Each With a Purpose</h2>
+
+  <div class="organism-grid">
+
+    <div class="organism-card cash-cow">
+      <div class="role">The Cash Cow</div>
+      <h3>Silverwings</h3>
+      <div class="desc">Benefits processing. Voice AI interview &rarr; AI-enhanced answers &rarr; online submission. 94% success rate. &pound;100k/month and doubling. Funds everything.</div>
+    </div>
+
+    <div class="organism-card infrastructure">
+      <div class="role">The Runtime</div>
+      <h3>Nova</h3>
+      <div class="desc">The operating system. CRM, multi-channel comms, venture management. Every product runs on Nova's backbone.</div>
+    </div>
+
+    <div class="organism-card infrastructure">
+      <div class="role">The Voice Compiler</div>
+      <h3>NaviSynth</h3>
+      <div class="desc">Compiles voice agents from a brand's real call data. Every call makes it smarter. Deeper, faster, better with every conversation. The flywheel that powers Silverwings' 94%.</div>
+    </div>
+
+    <div class="organism-card infrastructure">
+      <div class="role">The Immune System</div>
+      <h3>Thuban</h3>
+      <div class="desc">Code verification. 69 rules, 10 languages, hallucination detection. Live on npm. Catches bad code before it ships. Scans every venture.</div>
+    </div>
+
+    <div class="organism-card infrastructure">
+      <div class="role">The Nervous System</div>
+      <h3>Bellatrix</h3>
+      <div class="desc">The digital COO. Watches every metric across every company. Self-assembling dashboards. Auto-healing. The living, breathing data organism.</div>
+    </div>
+
+    <div class="organism-card governance">
+      <div class="role">The Compiler</div>
+      <h3>Praxis Human</h3>
+      <div class="desc">Turns the founder's mind into structured, executable data. Doctrine, taste, judgement, refusals &mdash; compiled into infrastructure the machines can follow.</div>
+    </div>
+
+    <div class="organism-card governance">
+      <div class="role">The Mind</div>
+      <h3>Prometheus</h3>
+      <div class="desc">30 AI agents across 9 providers reaching consensus. The multi-model collective that thinks before the factory builds.</div>
+    </div>
+
+    <div class="organism-card governance">
+      <div class="role">The Governance</div>
+      <h3>The Senate</h3>
+      <div class="desc">Multi-AI decision engine. Evaluates every venture idea, every strategic move, every risk against the founder's doctrine.</div>
+    </div>
+
+    <div class="organism-card infrastructure">
+      <div class="role">The Hands</div>
+      <h3>Orion Builder</h3>
+      <div class="desc">AI code generation at 18x speed. The engine that turns ideas into deployed software in hours, not months.</div>
+    </div>
+
+    <div class="organism-card infrastructure">
+      <div class="role">The Roof</div>
+      <h3>Orionos Foundry</h3>
+      <div class="desc">Parent brand. Venture factory. The single entity that houses the constellation and gives it identity.</div>
+    </div>
+
+    <div class="organism-card infrastructure">
+      <div class="role">The Skeleton</div>
+      <h3>Saiph</h3>
+      <div class="desc">Autonomous SaaS setup. Stripe, domains, Vercel, npm, GitHub &mdash; a new business stood up in 4 minutes instead of 20 hours.</div>
+    </div>
+
+    <div class="organism-card intelligence">
+      <div class="role">The Voice</div>
+      <h3>Mintaka</h3>
+      <div class="desc">AI creative director. Critique, generate, launch, learn. Advertising that improves with every campaign. No agency needed.</div>
+    </div>
+
+    <div class="organism-card intelligence">
+      <div class="role">The Eyes</div>
+      <h3>Pyxis</h3>
+      <div class="desc">Competitive intelligence engine. Headless browser mapping of any SaaS product. Knows what the competition is doing before they announce it.</div>
+    </div>
+
+    <div class="organism-card infrastructure">
+      <div class="role">The Metabolism</div>
+      <h3>Rigel</h3>
+      <div class="desc">Automated ERP. CRM, billing, revenue tracking. Replaces Zoho, Salesforce, and QuickBooks at compute cost.</div>
+    </div>
+
+    <div class="organism-card venture">
+      <div class="role">Live Venture</div>
+      <h3>SickDay.ai</h3>
+      <div class="desc">AI absence tracking for UK employers. Voice agent for sick-day reporting. Paying customers. Revenue flowing.</div>
+    </div>
+
+    <div class="organism-card venture">
+      <div class="role">Live Venture</div>
+      <h3>QuoteBuilder</h3>
+      <div class="desc">Intelligent proposal engine. Client conversation to scoped, priced quote &mdash; automatically. No more spreadsheets.</div>
+    </div>
+
+    <div class="organism-card grail">
+      <div class="role">The Grail</div>
+      <h3>The Imaginarium</h3>
+      <div class="desc">Human continuity. Preserve a person's reasoning, taste, judgement, voice, and creative identity &mdash; beyond biological failure. The dream everything else funds.</div>
+    </div>
+
+    <div class="organism-card classified">
+      <div class="role">Classified</div>
+      <h3>Grail Defence</h3>
+      <div class="desc">[Classified]</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ THE LOOP ═══════ -->
+<div class="section">
+  <div class="section-label">The Loop</div>
+  <h2>The Self-Replicating Venture Factory</h2>
+  <p>Each venture makes the next one cheaper, faster, and more likely to succeed. This loop does not exist anywhere else on Earth.</p>
+
+  <div class="loop-section">
+    <div class="loop-diagram">
+      <div class="step"><strong>PRAXIS</strong> compiles the founder into structured identity data</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>THE SENATE</strong> evaluates venture ideas against the founder's doctrine</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>ORION</strong> builds the code at 18x speed</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>THUBAN</strong> verifies it isn't hallucinated garbage</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>SAIPH</strong> sets up Stripe, domains, hosting &mdash; in 4 minutes</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>NAVISYNTH</strong> compiles the voice agent from real call data</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>MINTAKA</strong> creates the advertising creative</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>PYXIS</strong> watches the competitors</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>BELLATRIX</strong> monitors every metric, auto-heals issues</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>NOVA</strong> runs the operations</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><strong>SILVERWINGS</strong> generates the cash to fund the next one</div>
+      <div class="arrow">&darr;</div>
+      <div class="step">Back to <strong>PRAXIS</strong> &mdash; what did we learn? Update. <strong>Repeat.</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ THE NUMBERS ═══════ -->
+<div class="section">
+  <div class="section-label">The Numbers</div>
+  <h2>Silverwings Global Expansion &mdash; Self-Funded</h2>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="value" style="color:var(--green);">$12.7M</div>
+      <div class="label">Year 1 Revenue</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color:var(--cyan);">$52M</div>
+      <div class="label">Year 2 Revenue</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color:var(--gold);">$122.9M</div>
+      <div class="label">Year 3 Revenue</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color:var(--purple);">0%</div>
+      <div class="label">Equity Dilution</div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Market</th>
+        <th class="right">Year 1</th>
+        <th class="right">Year 2</th>
+        <th class="right">Year 3</th>
+        <th class="right">Launch Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>&#127468;&#127463; United Kingdom</td>
+        <td class="right green">$9.9M</td>
+        <td class="right green">$34.7M</td>
+        <td class="right green">$72.6M</td>
+        <td class="right">&mdash; (active)</td>
+      </tr>
+      <tr>
+        <td>&#127462;&#127482; Australia</td>
+        <td class="right">$1.8M</td>
+        <td class="right">$9.8M</td>
+        <td class="right">$25.9M</td>
+        <td class="right">&pound;52k</td>
+      </tr>
+      <tr>
+        <td>&#127464;&#127462; Canada</td>
+        <td class="right">$780k</td>
+        <td class="right">$5.1M</td>
+        <td class="right">$14.4M</td>
+        <td class="right">&pound;42k</td>
+      </tr>
+      <tr>
+        <td>&#127482;&#127480; USA</td>
+        <td class="right">$225k</td>
+        <td class="right">$2.375M</td>
+        <td class="right">$10M</td>
+        <td class="right">&pound;58k</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>Total</strong></td>
+        <td class="right green"><strong>$12.7M</strong></td>
+        <td class="right green"><strong>$52M</strong></td>
+        <td class="right green"><strong>$122.9M</strong></td>
+        <td class="right cyan"><strong>&pound;151k total</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="value" style="color:var(--green);">94%</div>
+      <div class="label">Success Rate</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color:var(--green);">24:1</div>
+      <div class="label">LTV:CAC (UK)</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color:var(--green);">86%</div>
+      <div class="label">Net Margin</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color:var(--green);">Day 0</div>
+      <div class="label">Payback Period</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ THE MOAT ═══════ -->
+<div class="section">
+  <div class="section-label">The Moat</div>
+  <h2>Why Nobody Can Copy This</h2>
+
+  <div class="organism-grid" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="organism-card infrastructure">
+      <h3>The Loop Compounds</h3>
+      <div class="desc">Every venture makes the next one cheaper. Venture #1 took months. Venture #15 takes days. Venture #20 will take hours. The marginal cost of launching a new business approaches zero.</div>
+    </div>
+    <div class="organism-card infrastructure">
+      <h3>The Data Moat Deepens</h3>
+      <div class="desc">NaviSynth gets smarter with every call. Thuban's rule corpus grows with every scan. Bellatrix learns patterns from every metric. The data advantage widens daily. Competitors start years behind.</div>
+    </div>
+    <div class="organism-card infrastructure">
+      <h3>The Form Database</h3>
+      <div class="desc">Every government form mapped becomes a permanent asset. By Year 3: hundreds of forms across 10+ countries. That database &mdash; structured mapping between human intent and government fields &mdash; does not exist anywhere else on Earth.</div>
+    </div>
+    <div class="organism-card infrastructure">
+      <h3>The Founder Loop</h3>
+      <div class="desc">Praxis compiles the founder. The Senate governs to the founder's doctrine. No other venture factory has this: the founder's brain as structured data driving automated decision-making. It's a moat nobody can replicate because it's built from one person's mind.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ THE JOURNEY ═══════ -->
+<div class="section founder-section">
+  <div class="section-label">The Journey</div>
+  <h2>From Zero to Here</h2>
+  <div class="origin">A 55-year-old from Ashington, Northumberland. No background in code. None.</div>
+
+  <div class="journey">
+    <div class="journey-point">
+      <div class="when">12 Months Ago</div>
+      <div class="what">Couldn't write a function</div>
+    </div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-point">
+      <div class="when">6 Months Ago</div>
+      <div class="what">First revenue from Silverwings</div>
+    </div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-point">
+      <div class="when">Today</div>
+      <div class="what">18 ventures, &pound;100k/month, 400k lines of code</div>
+    </div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-point">
+      <div class="when">Year 2-3</div>
+      <div class="what">$1B+ valuation, 100% founder-owned</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ WHAT WE NEED ═══════ -->
+<div class="section">
+  <div class="section-label">What We Need</div>
+  <h2>The Ask</h2>
+  <p>This isn't a fundraise. This is a briefing. Here's what we need from you:</p>
+
+  <div class="organism-grid" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="organism-card governance">
+      <h3>Kenny</h3>
+      <div class="desc">Keep doing what you're doing. The QA is world-class. The strategic eye is invaluable. We need you to see the full constellation and help us prioritise what ships next. Your feedback loop is part of the organism now.</div>
+    </div>
+    <div class="organism-card governance">
+      <h3>Darren</h3>
+      <div class="desc">The global expansion plan needs your operational brain. Entity formation, compliance, BNPL integrations, local market knowledge. Two weeks to get a solid roadmap back. Deadline: 21 July 2026.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════ FINAL DOCTRINE ═══════ -->
+<div class="final-doctrine">
+  <div class="the-line">No food, no dream &mdash; No dream, no food</div>
+  <p style="color:var(--text-dim);max-width:600px;margin:0 auto 2rem;font-size:0.95rem;">The human dreams. The machine builds. The machine gives back leverage. The human dreams bigger. The loop compounds. Take either half away and the whole thing stops.</p>
+  <div class="attribution">The Orion Constellation &mdash; Silverwings Benefits Ltd &mdash; July 2026</div>
+</div>
+
+<div class="footer">
+  <p>Confidential. Not for distribution outside named recipients.</p>
+  <div style="text-align:center;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(192,192,192,0.2);">
+    <p style="font-size:0.75rem;letter-spacing:0.25em;text-transform:uppercase;color:silver;font-weight:500;margin:0;">No food, no dream &mdash; No dream, no food</p>
+  </div>
+</div>
+
+</body>
+</html>
