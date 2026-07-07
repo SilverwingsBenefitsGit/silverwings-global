@@ -118,8 +118,8 @@ const ventures = [
   { name: "SickDay.ai", role: "Live Venture", color: GREEN },
   { name: "QuoteBuilder", role: "Live Venture", color: GREEN },
   { name: "The Imaginarium", role: "The Grail", color: GOLD },
-  { name: "NaviSynth", role: "Voice Compiler", color: BLUE },
-  { name: "Bellatrix", role: "Watchdog", color: ORANGE },
+  { name: "Orionos Foundry", role: "The Foundry", color: CYAN },
+  { name: "Grail", role: "Classified", color: SILVER },
 ];
 
 /* Star positions in constellation ring */
