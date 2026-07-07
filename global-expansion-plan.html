@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silverwings Global Expansion Plan &mdash; Confidential</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --text-dim: #94a3b8;
+  --accent: #0066ff;
+  --green: #059669;
+  --green-bg: rgba(5,150,105,0.06);
+  --red: #dc2626;
+  --purple: #7c3aed;
+  --purple-bg: rgba(124,58,237,0.05);
+  --orange: #ea580c;
+  --orange-bg: rgba(234,88,12,0.05);
+  --cyan: #0891b2;
+  --cyan-bg: rgba(8,145,178,0.05);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.7; }
+
+/* Print styles */
+@media print {
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  body { font-size: 11pt; }
+  .container { max-width: 100%; padding: 0 1cm; }
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white; padding: 4rem 0 3rem; text-align: center;
+}
+.header .confidential {
+  display: inline-block; padding: 0.3rem 1rem; border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px; font-size: 0.7rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.6);
+  margin-bottom: 1.5rem; text-transform: uppercase;
+}
+.header h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.1; margin-bottom: 0.75rem; }
+.header h1 span { color: #3b82f6; }
+.header .subtitle { font-size: 1.15rem; color: rgba(255,255,255,0.7); font-weight: 300; }
+.header .meta {
+  margin-top: 2rem; display: flex; justify-content: center; gap: 2rem;
+  font-size: 0.8rem; color: rgba(255,255,255,0.5);
+}
+
+/* Section */
+.section { padding: 3rem 0; }
+.section + .section { border-top: 1px solid var(--border); }
+.section-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+.section h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; }
+.section h3 { font-size: 1.15rem; font-weight: 700; margin: 1.5rem 0 0.5rem; color: var(--text); }
+.section p { color: var(--text-secondary); margin-bottom: 1rem; }
+.section ul { color: var(--text-secondary); padding-left: 1.5rem; margin-bottom: 1rem; }
+.section li { margin-bottom: 0.3rem; }
+
+/* Stat grid */
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0; }
+.stat-card {
+  background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1.25rem; text-align: center;
+}
+.stat-card .value { font-size: 1.8rem; font-weight: 900; line-height: 1.2; }
+.stat-card .label { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.25rem; letter-spacing: 0.05em; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.85rem; }
+th {
+  text-align: left; padding: 0.75rem 1rem; background: var(--bg-alt);
+  border-bottom: 2px solid var(--border); font-weight: 600; font-size: 0.78rem;
+  color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;
+}
+td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); color: var(--text); }
+tr:last-child td { border-bottom: none; }
+.highlight-row { background: var(--green-bg); font-weight: 600; }
+.total-row { background: var(--bg-alt); font-weight: 700; border-top: 2px solid var(--border); }
+
+/* Country cards */
+.country-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 1.5rem 0; }
+.country-card {
+  background: var(--surface); border: 2px solid var(--border); border-radius: 14px;
+  padding: 1.5rem; transition: border-color 0.2s;
+}
+.country-card:hover { border-color: var(--accent); }
+.country-flag { font-size: 2rem; margin-bottom: 0.5rem; }
+.country-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+.country-tag {
+  display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px;
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em;
+}
+.country-stat { display: flex; justify-content: space-between; padding: 0.4rem 0; font-size: 0.82rem; }
+.country-stat .label { color: var(--text-dim); }
+.country-stat .value { font-weight: 600; }
+
+/* Cascade diagram */
+.cascade {
+  background: var(--bg-alt); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.5rem; margin: 1.5rem 0;
+}
+.cascade-step {
+  display: flex; align-items: center; gap: 1rem; padding: 0.6rem 0;
+  padding-left: calc(var(--depth, 0) * 2rem);
+}
+.cascade-arrow { color: var(--green); font-weight: 700; }
+.cascade-benefit { font-weight: 600; }
+.cascade-fee { color: var(--green); font-weight: 700; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Blocker table */
+.blocker-solved { color: var(--green); font-weight: 600; }
+.blocker-icon { font-size: 1.2rem; }
+
+/* Revenue chart (CSS-only bars) */
+.bar-chart { margin: 1.5rem 0; }
+.bar-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+.bar-label { width: 80px; font-size: 0.82rem; font-weight: 600; text-align: right; }
+.bar-container { flex: 1; height: 36px; background: var(--bg-alt); border-radius: 8px; overflow: hidden; position: relative; }
+.bar-fill {
+  height: 100%; border-radius: 8px; display: flex; align-items: center;
+  padding-left: 12px; font-size: 0.78rem; font-weight: 700; color: white;
+  transition: width 0.8s ease;
+}
+
+/* Call to action */
+.cta-box {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border-radius: 16px; padding: 2.5rem; text-align: center; color: white; margin: 2rem 0;
+}
+.cta-box h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem; }
+.cta-box p { color: rgba(255,255,255,0.7); margin-bottom: 1.5rem; }
+.cta-box .deadline {
+  display: inline-block; padding: 0.5rem 1.5rem; border: 2px solid #3b82f6;
+  border-radius: 8px; font-weight: 700; font-size: 1rem; color: #3b82f6;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border); padding: 2rem 0; text-align: center;
+  font-size: 0.78rem; color: var(--text-dim);
+}
+
+@media (max-width: 768px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .country-grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 2rem; }
+  .container { padding: 0 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="container">
+    <div class="confidential">Confidential &mdash; Internal Strategy Document</div>
+    <h1>Silverwings <span>Global</span></h1>
+    <div class="subtitle">The $1 Trillion Unclaimed Benefits Market.<br>We've cracked the UK. Now we take the world.</div>
+    <div class="meta">
+      <span>Prepared: July 2026</span>
+      <span>Author: Craig Lowther, CEO</span>
+      <span>Distribution: Kenny, Darren, Craig</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- Executive Summary -->
+<div class="section">
+  <div class="section-num" style="background:var(--purple-bg);color:var(--purple);">01</div>
+  <h2>Executive Summary</h2>
+  <p>Silverwings has proven a model that prints money: <strong>Voice AI interview &rarr; AI-enhanced answers &rarr; online form submission &rarr; 94% success rate &rarr; 15% + VAT fee &rarr; PayPal Pay in 3 for instant cashflow.</strong></p>
+  <p>Customer acquisition cost is &pound;40. Compute cost per application is &pound;3. Gross margin is 96%. We currently do this for UK Attendance Allowance. But the same tech stack &mdash; identical tech stack &mdash; works for <strong>every online benefits form in every English-speaking country on earth.</strong></p>
+  <p>The question isn&rsquo;t whether this works elsewhere. It&rsquo;s where to go first. This document answers that question.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="value" style="color:var(--green);">$100B+</div>
+      <div class="label">Unclaimed benefits annually (OECD)</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color:var(--accent);">94%</div>
+      <div class="label">Success rate (UK proven)</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color:var(--purple);">24:1</div>
+      <div class="label">LTV : CAC ratio</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color:var(--orange);">$122.9M</div>
+      <div class="label">Y3 revenue projection</div>
+    </div>
+  </div>
+</div>
+
+<!-- The Model -->
+<div class="section">
+  <div class="section-num" style="background:var(--green-bg);color:var(--green);">02</div>
+  <h2>The Model &mdash; How It Works</h2>
+  <p>Every country. Every benefit. Same five steps.</p>
+
+  <table>
+    <tr><th style="width:40px;">#</th><th>Step</th><th>What Happens</th><th>Tech</th></tr>
+    <tr><td><strong>1</strong></td><td><strong>Client calls</strong></td><td>Inbound call via local number. Voice AI (Gemma) conducts a structured interview in the client&rsquo;s language.</td><td>Twilio + Cartesia Sonic</td></tr>
+    <tr><td><strong>2</strong></td><td><strong>Consent &amp; auth</strong></td><td>Digital consent recorded with timestamp. Authority to act obtained (varies by country &mdash; we handle each).</td><td>Voice recording + digital signing</td></tr>
+    <tr><td><strong>3</strong></td><td><strong>AI enhancement</strong></td><td>Raw answers enhanced: terminology aligned to scoring criteria, completeness checked, eligibility validated.</td><td>LLM + benefit-specific rules engine</td></tr>
+    <tr><td><strong>4</strong></td><td><strong>Form submission</strong></td><td>Headless browser fills and submits the online form. Or: guided client self-submission via step-by-step walkthrough.</td><td>Playwright / headless Chrome</td></tr>
+    <tr><td><strong>5</strong></td><td><strong>Fee collection</strong></td><td>On successful award: 15% + tax of first year&rsquo;s value. Client pays via BNPL (3 instalments). We get paid <strong>upfront in full</strong>.</td><td>PayPal Pay in 3 / Afterpay / Affirm</td></tr>
+  </table>
+
+  <p style="font-weight:600;color:var(--green);">Cost per application: ~&pound;3 compute. No humans in the loop. No office. No paper.</p>
+</div>
+
+<!-- UK Expansion -->
+<div class="section page-break">
+  <div class="section-num" style="background:var(--orange-bg);color:var(--orange);">03</div>
+  <h2>UK Market Expansion &mdash; Immediate Revenue</h2>
+  <p>We&rsquo;re currently doing Attendance Allowance only. Here are 6 more benefits we can submit <strong>online today</strong> with the same tech:</p>
+
+  <table>
+    <tr><th>Benefit</th><th>Annual Award</th><th>15% + VAT Fee</th><th>Unclaimed</th><th>Success Rate</th><th>Online?</th></tr>
+    <tr class="highlight-row"><td>Attendance Allowance</td><td>&pound;5,959</td><td><strong>&pound;1,073</strong></td><td>1.1M</td><td>94%</td><td>Full</td></tr>
+    <tr><td>Pension Credit</td><td>&pound;5,200</td><td><strong>&pound;936</strong></td><td>850K</td><td>75%+</td><td>Full</td></tr>
+    <tr><td>Carer&rsquo;s Allowance</td><td>&pound;4,495</td><td><strong>&pound;809</strong></td><td>400K+</td><td>75%+</td><td>Full</td></tr>
+    <tr><td>PIP (enhanced)</td><td>&pound;10,119</td><td><strong>&pound;1,821</strong></td><td>Large</td><td>52%</td><td>Full</td></tr>
+    <tr><td>New Style ESA</td><td>&pound;7,587</td><td><strong>&pound;1,366</strong></td><td>Moderate</td><td>50%</td><td>Full</td></tr>
+    <tr><td>Bereavement Support</td><td>&pound;9,800</td><td><strong>&pound;1,764</strong></td><td>70K/yr</td><td>85%+</td><td>Full</td></tr>
+    <tr><td>Council Tax Reduction</td><td>&pound;1,500</td><td><strong>&pound;270</strong></td><td>Large</td><td>95%</td><td>Full</td></tr>
+  </table>
+
+  <h3>The Cascade Effect &mdash; One Client, Multiple Fees</h3>
+  <p>This is the killer insight. Winning one benefit unlocks eligibility for others:</p>
+  <div class="cascade">
+    <div class="cascade-step" style="--depth:0;"><span class="cascade-benefit">Client applies for Attendance Allowance</span> <span class="cascade-fee">&pound;1,073</span></div>
+    <div class="cascade-step" style="--depth:1;"><span class="cascade-arrow">&rarr;</span> <span class="cascade-benefit">AA award unlocks Pension Credit</span> <span class="cascade-fee">+ &pound;936</span></div>
+    <div class="cascade-step" style="--depth:2;"><span class="cascade-arrow">&rarr;</span> <span class="cascade-benefit">PC award unlocks Council Tax Reduction</span> <span class="cascade-fee">+ &pound;270</span></div>
+    <div class="cascade-step" style="--depth:2;"><span class="cascade-arrow">&rarr;</span> <span class="cascade-benefit">PC award unlocks Winter Fuel Payment</span> <span class="cascade-fee">auto</span></div>
+    <div class="cascade-step" style="--depth:1;"><span class="cascade-arrow">&rarr;</span> <span class="cascade-benefit">If carer exists &rarr; Carer&rsquo;s Allowance</span> <span class="cascade-fee">+ &pound;809</span></div>
+    <div class="cascade-step total-row" style="--depth:0;padding-top:1rem;border-top:2px solid var(--border);margin-top:0.5rem;"><span class="cascade-benefit">Total from one pensioner</span> <span class="cascade-fee" style="font-size:1.1rem;color:var(--green);">Up to &pound;3,088</span></div>
+  </div>
+</div>
+
+<!-- International Markets -->
+<div class="section page-break">
+  <div class="section-num" style="background:var(--cyan-bg);color:var(--cyan);">04</div>
+  <h2>The Three Best International Markets</h2>
+  <p>We scored every OECD country on: online portal availability, English language, agent/representative system, fee regulation, market size, and regulatory complexity. Three markets are obvious.</p>
+
+  <div class="country-grid">
+    <div class="country-card" style="border-color:var(--green);">
+      <div class="country-flag">&#127462;&#127482;</div>
+      <div class="country-name">Australia</div>
+      <div class="country-tag" style="background:var(--green-bg);color:var(--green);">LAUNCH FIRST</div>
+      <div style="margin-top:1rem;">
+        <div class="country-stat"><span class="label">Portal</span><span class="value">MyGov / Centrelink</span></div>
+        <div class="country-stat"><span class="label">Language</span><span class="value">English</span></div>
+        <div class="country-stat"><span class="label">Agent system</span><span class="value">Nominee (AUS221)</span></div>
+        <div class="country-stat"><span class="label">Top benefit</span><span class="value">Age Pension</span></div>
+        <div class="country-stat"><span class="label">Annual award</span><span class="value">A$31,223</span></div>
+        <div class="country-stat"><span class="label">Fee per claim</span><span class="value" style="color:var(--green);">A$4,683</span></div>
+        <div class="country-stat"><span class="label">Fee cap?</span><span class="value" style="color:var(--green);">None</span></div>
+        <div class="country-stat"><span class="label">Unclaimed est.</span><span class="value">250K+</span></div>
+      </div>
+    </div>
+
+    <div class="country-card" style="border-color:var(--red);">
+      <div class="country-flag">&#127464;&#127462;</div>
+      <div class="country-name">Canada</div>
+      <div class="country-tag" style="background:var(--orange-bg);color:var(--orange);">LAUNCH SECOND</div>
+      <div style="margin-top:1rem;">
+        <div class="country-stat"><span class="label">Portal</span><span class="value">My Service Canada</span></div>
+        <div class="country-stat"><span class="label">Language</span><span class="value">English + French</span></div>
+        <div class="country-stat"><span class="label">Agent system</span><span class="value">ISP-1603 consent</span></div>
+        <div class="country-stat"><span class="label">Top benefit</span><span class="value">GIS (the Canadian AA)</span></div>
+        <div class="country-stat"><span class="label">Annual award</span><span class="value">C$13,095</span></div>
+        <div class="country-stat"><span class="label">Fee per claim</span><span class="value" style="color:var(--green);">C$1,964</span></div>
+        <div class="country-stat"><span class="label">Fee cap?</span><span class="value" style="color:var(--green);">None</span></div>
+        <div class="country-stat"><span class="label">Unclaimed est.</span><span class="value">290K+</span></div>
+      </div>
+    </div>
+
+    <div class="country-card" style="border-color:var(--accent);">
+      <div class="country-flag">&#127482;&#127480;</div>
+      <div class="country-name">United States</div>
+      <div class="country-tag" style="background:rgba(0,102,255,0.06);color:var(--accent);">LAUNCH THIRD</div>
+      <div style="margin-top:1rem;">
+        <div class="country-stat"><span class="label">Portal</span><span class="value">SSA.gov</span></div>
+        <div class="country-stat"><span class="label">Language</span><span class="value">English + Spanish</span></div>
+        <div class="country-stat"><span class="label">Agent system</span><span class="value">SSA-1696 (appointed rep)</span></div>
+        <div class="country-stat"><span class="label">Top benefit</span><span class="value">SSDI</span></div>
+        <div class="country-stat"><span class="label">Annual award</span><span class="value">$21,000 avg</span></div>
+        <div class="country-stat"><span class="label">Fee model</span><span class="value" style="color:var(--green);">Flat $500</span></div>
+        <div class="country-stat"><span class="label">Fee cap?</span><span class="value" style="color:var(--orange);">25% / $9,200 (reps only)</span></div>
+        <div class="country-stat"><span class="label">Applicants/yr</span><span class="value">2M+</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Blockers Destroyed -->
+<div class="section page-break">
+  <div class="section-num" style="background:rgba(220,38,38,0.06);color:var(--red);">05</div>
+  <h2>Every Blocker. Destroyed.</h2>
+  <p>Here&rsquo;s every objection you&rsquo;ll hear about why this can&rsquo;t work internationally &mdash; and why each one is wrong.</p>
+
+  <table>
+    <tr><th style="width:30px;"></th><th>Blocker</th><th>Reality</th><th>Precedent</th></tr>
+    <tr>
+      <td class="blocker-icon">&#10060;</td>
+      <td>&ldquo;You need local Power of Attorney&rdquo;</td>
+      <td class="blocker-solved">No. We&rsquo;re a form preparation service, not a legal representative. The client is the applicant. We prepare answers; they submit.</td>
+      <td>TurboTax, H&amp;R Block, Fightback4Justice</td>
+    </tr>
+    <tr>
+      <td class="blocker-icon">&#10060;</td>
+      <td>&ldquo;Cross-border data protection&rdquo;</td>
+      <td class="blocker-solved">Explicit recorded consent + DPIA. UK has EU adequacy. Australia allows with consent. Canada allows with contractual safeguards.</td>
+      <td>Every international SaaS company</td>
+    </tr>
+    <tr>
+      <td class="blocker-icon">&#10060;</td>
+      <td>&ldquo;You need a licence&rdquo;</td>
+      <td class="blocker-solved">Benefits assistance is unregulated in UK, Australia, and Canada. USA: &ldquo;form preparation&rdquo; is not regulated (same as TurboTax).</td>
+      <td>TurboTax operates without CPA licence</td>
+    </tr>
+    <tr>
+      <td class="blocker-icon">&#10060;</td>
+      <td>&ldquo;Portals need local ID&rdquo;</td>
+      <td class="blocker-solved">Client uses their own credentials (MyGov, GCKey, Login.gov). We never touch their identity &mdash; we prepare answers, they authenticate.</td>
+      <td>H&amp;R Block online tax filing</td>
+    </tr>
+    <tr>
+      <td class="blocker-icon">&#10060;</td>
+      <td>&ldquo;Fee caps in the USA&rdquo;</td>
+      <td class="blocker-solved">The 25%/$9,200 cap applies to SSA-registered representatives. Flat fee for form preparation avoids it entirely.</td>
+      <td>TurboTax charges flat fees, not %</td>
+    </tr>
+    <tr>
+      <td class="blocker-icon">&#10060;</td>
+      <td>&ldquo;Non-English forms&rdquo;</td>
+      <td class="blocker-solved">Interview is in English. Form fields are data-mapped once per benefit type. The browser fills known selectors &mdash; it doesn&rsquo;t need to read.</td>
+      <td>All international form automation</td>
+    </tr>
+    <tr>
+      <td class="blocker-icon">&#10060;</td>
+      <td>&ldquo;Government portals block foreign IPs&rdquo;</td>
+      <td class="blocker-solved">They don&rsquo;t. Government portals are designed for citizens abroad. If needed: cloud instances in target country.</td>
+      <td>Portals explicitly support overseas access</td>
+    </tr>
+  </table>
+</div>
+
+<!-- Financial Projections -->
+<div class="section page-break">
+  <div class="section-num" style="background:var(--green-bg);color:var(--green);">06</div>
+  <h2>Financial Projections &mdash; Years 1 to 3</h2>
+
+  <h3>Revenue by Market</h3>
+  <table>
+    <tr><th>Market</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr>
+    <tr><td><strong>&#127468;&#127463; United Kingdom</strong></td><td>&pound;7.8M ($9.9M)</td><td>&pound;27.3M ($34.7M)</td><td>&pound;57.2M ($72.6M)</td></tr>
+    <tr><td><strong>&#127462;&#127482; Australia</strong></td><td>A$2.8M ($1.8M)</td><td>A$15.2M ($9.8M)</td><td>A$40.0M ($25.9M)</td></tr>
+    <tr><td><strong>&#127464;&#127462; Canada</strong></td><td>C$1.08M ($780K)</td><td>C$7.0M ($5.1M)</td><td>C$19.8M ($14.4M)</td></tr>
+    <tr><td><strong>&#127482;&#127480; United States</strong></td><td>$225K</td><td>$2.375M</td><td>$10.0M</td></tr>
+    <tr class="total-row"><td><strong>TOTAL (USD)</strong></td><td><strong>$12.7M</strong></td><td><strong>$52.0M</strong></td><td><strong>$122.9M</strong></td></tr>
+  </table>
+
+  <h3>Revenue Visualised</h3>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <div class="bar-label">Year 1</div>
+      <div class="bar-container">
+        <div class="bar-fill" style="width:10.3%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);">$12.7M</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Year 2</div>
+      <div class="bar-container">
+        <div class="bar-fill" style="width:42.3%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);">$52.0M</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Year 3</div>
+      <div class="bar-container">
+        <div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#059669,#3b82f6);">$122.9M</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Unit Economics</h3>
+  <table>
+    <tr><th>Metric</th><th>&#127468;&#127463; UK</th><th>&#127462;&#127482; Australia</th><th>&#127464;&#127462; Canada</th><th>&#127482;&#127480; USA</th></tr>
+    <tr><td>CAC</td><td>$50</td><td>$65</td><td>$60</td><td>$80</td></tr>
+    <tr><td>Revenue per claim (avg)</td><td>$1,250</td><td>$2,400</td><td>$1,300</td><td>$475</td></tr>
+    <tr><td>Compute cost per claim</td><td>$4</td><td>$5</td><td>$5</td><td>$5</td></tr>
+    <tr class="highlight-row"><td>Gross margin per claim</td><td><strong>$1,196</strong></td><td><strong>$2,330</strong></td><td><strong>$1,235</strong></td><td><strong>$390</strong></td></tr>
+    <tr class="highlight-row"><td>LTV : CAC</td><td><strong>24:1</strong></td><td><strong>36:1</strong></td><td><strong>21:1</strong></td><td><strong>5:1</strong></td></tr>
+    <tr><td>Payback period</td><td>Immediate</td><td>Immediate</td><td>Immediate</td><td>Immediate</td></tr>
+  </table>
+
+  <h3>Cost Structure (Year 1)</h3>
+  <table>
+    <tr><th>Cost</th><th>Amount</th><th>Notes</th></tr>
+    <tr><td>Customer acquisition</td><td>$600K</td><td>12,000 clients &times; blended $50 CAC</td></tr>
+    <tr><td>Voice AI (Cartesia/Twilio)</td><td>$120K</td><td>~$10/call average</td></tr>
+    <tr><td>Compute (hosting, browsers)</td><td>$48K</td><td>~$4/application</td></tr>
+    <tr><td>Compliance &amp; legal</td><td>$150K</td><td>DPIA, entity formation (AU/CA/US)</td></tr>
+    <tr><td>Localisation (form mapping)</td><td>$80K</td><td>One-time per benefit per country</td></tr>
+    <tr><td>Staff (5 people)</td><td>$400K</td><td>2 engineers, 1 ops, 1 compliance, 1 marketing</td></tr>
+    <tr><td>BNPL fees (~3%)</td><td>$380K</td><td>On $12.7M gross</td></tr>
+    <tr class="total-row"><td><strong>Total costs</strong></td><td><strong>$1.78M</strong></td><td></td></tr>
+    <tr class="highlight-row"><td><strong>Net profit (Y1)</strong></td><td><strong>$10.9M</strong></td><td><strong>86% net margin</strong></td></tr>
+  </table>
+</div>
+
+<!-- Roadmap -->
+<div class="section page-break">
+  <div class="section-num" style="background:var(--purple-bg);color:var(--purple);">07</div>
+  <h2>Roadmap &mdash; 12 Month Execution Plan</h2>
+
+  <table>
+    <tr><th style="width:100px;">When</th><th>What</th><th>Market</th><th>Revenue Impact</th></tr>
+    <tr><td><strong>Weeks 1-2</strong></td><td>Map Pension Credit + Carer&rsquo;s Allowance online forms. Build cascade logic.</td><td>&#127468;&#127463; UK</td><td>+&pound;1.7M/yr run rate</td></tr>
+    <tr><td><strong>Month 1</strong></td><td>Launch PC + CA alongside AA. Same funnel, same marketing channels.</td><td>&#127468;&#127463; UK</td><td>3&times; revenue per client</td></tr>
+    <tr><td><strong>Month 2</strong></td><td>Register Australian Pty Ltd. Map Centrelink Age Pension form.</td><td>&#127462;&#127482; AU</td><td>Setup cost only</td></tr>
+    <tr><td><strong>Month 3</strong></td><td>Build AUS221 nominee flow. Set up Twilio AU. Afterpay integration.</td><td>&#127462;&#127482; AU</td><td>Setup cost only</td></tr>
+    <tr><td><strong>Month 4</strong></td><td><strong>Australia launch.</strong> Age Pension first. Carer Payment/Allowance second.</td><td>&#127462;&#127482; AU</td><td>+A$400K/mo</td></tr>
+    <tr><td><strong>Month 5</strong></td><td>Map Service Canada forms: GIS, OAS. ISP-1603 consent flow.</td><td>&#127464;&#127462; CA</td><td>Setup cost only</td></tr>
+    <tr><td><strong>Month 6</strong></td><td>French Voice AI (Cartesia). GCKey guided submission flow.</td><td>&#127464;&#127462; CA</td><td>Setup cost only</td></tr>
+    <tr><td><strong>Month 7</strong></td><td><strong>Canada launch.</strong> GIS first (the Canadian AA). OAS second.</td><td>&#127464;&#127462; CA</td><td>+C$150K/mo</td></tr>
+    <tr><td><strong>Month 8-9</strong></td><td>Map SSA forms (SSDI, SSI). Legal review of &ldquo;form preparation&rdquo; positioning.</td><td>&#127482;&#127480; US</td><td>Setup cost only</td></tr>
+    <tr><td><strong>Month 10</strong></td><td><strong>USA soft launch.</strong> SSDI form preparation. Flat $500 fee. English + Spanish.</td><td>&#127482;&#127480; US</td><td>+$75K/mo</td></tr>
+    <tr><td><strong>Month 11-12</strong></td><td>Scale all markets. Add PIP (UK), DSP (AU), CPP-D (CA).</td><td>All</td><td>Compound growth</td></tr>
+  </table>
+</div>
+
+<!-- BNPL -->
+<div class="section">
+  <div class="section-num" style="background:var(--green-bg);color:var(--green);">08</div>
+  <h2>The BNPL Cashflow Multiplier</h2>
+  <p>This is what makes the model bulletproof: <strong>we get paid in full on day one.</strong></p>
+
+  <div class="stat-grid" style="grid-template-columns: 1fr 1fr;">
+    <div class="stat-card" style="border-color:var(--red);">
+      <div class="label" style="margin-bottom:0.5rem;">WITHOUT BNPL</div>
+      <div class="value" style="color:var(--red);font-size:1.4rem;">$4.2M</div>
+      <div class="label">Cash collected in Y1 (payment plans)</div>
+      <div style="margin-top:0.75rem;font-size:0.82rem;color:var(--text-dim);">Client pays over months. Collection risk. Working capital required.</div>
+    </div>
+    <div class="stat-card" style="border-color:var(--green);">
+      <div class="label" style="margin-bottom:0.5rem;">WITH BNPL (PayPal / Afterpay)</div>
+      <div class="value" style="color:var(--green);font-size:1.4rem;">$12.3M</div>
+      <div class="label">Cash collected in Y1 (upfront, minus 3%)</div>
+      <div style="margin-top:0.75rem;font-size:0.82rem;color:var(--text-dim);">PayPal pays us in full. Client pays PayPal in 3 instalments. Zero collection risk.</div>
+    </div>
+  </div>
+  <p style="text-align:center;font-weight:600;color:var(--green);font-size:1.1rem;margin-top:1rem;">3&times; the cashflow. Zero the risk.</p>
+</div>
+
+<!-- The Ask -->
+<div class="section page-break">
+  <div class="section-num" style="background:var(--orange-bg);color:var(--orange);">09</div>
+  <h2>What I Need From You</h2>
+
+  <p>This document is the strategy. Now I need a solid plan in two weeks on how we execute. Specifically:</p>
+
+  <table>
+    <tr><th>Deliverable</th><th>Owner</th><th>Due</th></tr>
+    <tr><td>UK form mapping: Pension Credit + Carer&rsquo;s Allowance voice interview scripts</td><td>Craig + AI</td><td>2 weeks</td></tr>
+    <tr><td>Australian entity formation &mdash; Pty Ltd registration, ABN, GST</td><td>Kenny / Darren</td><td>2 weeks</td></tr>
+    <tr><td>Legal review: &ldquo;application preparation service&rdquo; positioning for AU/CA/US</td><td>Kenny</td><td>2 weeks</td></tr>
+    <tr><td>Centrelink form mapping: Age Pension fields &rarr; interview questions</td><td>Craig + AI</td><td>4 weeks</td></tr>
+    <tr><td>Twilio AU/CA number provisioning</td><td>Craig</td><td>2 weeks</td></tr>
+    <tr><td>Afterpay merchant account (Australia)</td><td>Darren</td><td>4 weeks</td></tr>
+    <tr><td>Marketing plan: AU pensioner targeting via Facebook/Google</td><td>All</td><td>4 weeks</td></tr>
+    <tr><td>DPIA completion (cross-border health data processing)</td><td>Kenny</td><td>4 weeks</td></tr>
+  </table>
+</div>
+
+<!-- Call to action -->
+<div class="cta-box">
+  <h2>The question isn&rsquo;t &ldquo;can we?&rdquo;</h2>
+  <h2>It&rsquo;s &ldquo;how fast?&rdquo;</h2>
+  <p>We have the tech. We have the model. We have the proof. The UK market alone is &pound;57M by Year 3.<br>Add three more countries and we&rsquo;re looking at $123M revenue on a 5-person team.</p>
+  <p>Solid plan in two weeks. Then we go.</p>
+  <div class="deadline">Execution plan due: 21 July 2026</div>
+</div>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p><strong>Silverwings Global</strong> &mdash; Confidential Strategy Document &mdash; July 2026</p>
+    <p style="margin-top:0.25rem;">Craig Lowther &middot; Silverwings Benefits &middot; craig@silverwingsbenefits.com</p>
+  </div>
+</footer>
+
+</body>
+</html>
