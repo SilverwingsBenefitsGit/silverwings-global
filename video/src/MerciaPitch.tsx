@@ -122,7 +122,7 @@ export const MerciaPitch: React.FC = () => {
           <Title size={52}>We built a benefits business.</Title>
         </FadeIn>
         <FadeIn delay={25}>
-          <Sub>Silverwings automates UK benefit claims — voice AI interview, AI-enhanced answers, online submission. 94% success rate.</Sub>
+          <Sub>Voice AI interview → AI-enhanced answers → open banking auto-billing. Award detected → invoice sent → PayPal Pay in 3 collected. Zero human touch.</Sub>
         </FadeIn>
         <FadeIn delay={45}>
           <MetricRow items={[
@@ -364,7 +364,7 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={70}>
           <div style={{ marginTop: 40, fontSize: 22, color: PURPLE, fontWeight: 600, textAlign: "center" }}>
-            De-risked by £809K client revenue. 12 staff replaced by AI. Pure SaaS upside.
+            De-risked by £809K client revenue. £120K first-year survival capital — 30% repaid, no equity given. 12 staff roles replaced by AI.
           </div>
         </FadeIn>
       </SceneWrap>

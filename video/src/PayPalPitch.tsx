@@ -128,7 +128,7 @@ export const PayPalPitch: React.FC = () => {
           ]} />
         </FadeIn>
         <FadeIn delay={55}>
-          <Sub>Every product processes payments. Every payment goes through PayPal.</Sub>
+          <Sub>Open banking auto-billing is LIVE: DWP award detected → invoice generated → Pay in 3 link sent. Zero human touch.</Sub>
         </FadeIn>
       </SceneWrap>
 
@@ -139,7 +139,7 @@ export const PayPalPitch: React.FC = () => {
           <Title size={52}>Silverwings Benefits</Title>
         </FadeIn>
         <FadeIn delay={15}>
-          <Sub>Pay in 3 on every claim. £830 average. 3.3× cashflow multiplier.</Sub>
+          <Sub>Pay in 3 on every claim. Open banking auto-billing — award to cash, zero human touch. 3.3× cashflow multiplier.</Sub>
         </FadeIn>
         <FadeIn delay={35}>
           <div style={{ marginTop: 40, width: "100%" }}>
