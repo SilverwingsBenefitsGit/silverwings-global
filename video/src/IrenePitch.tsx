@@ -241,12 +241,13 @@ export const IrenePitch: React.FC = () => {
         <FadeIn delay={20}>
           <div style={{ marginTop: 30, width: "100%" }}>
             <TableRow cols={["", "Detail"]} colors={[DIM, DIM]} bold />
-            <TableRow cols={["Deposits (13 months)", "£928,915 — bank verified"]} colors={[WHITE, GREEN]} />
+            <TableRow cols={["Client revenue (13 months)", "£809,000 — bank verified"]} colors={[WHITE, GREEN]} />
+            <TableRow cols={["First-year survival capital", "£120K — bootstrapped, 30% repaid"]} colors={[WHITE, DIM]} />
             <TableRow cols={["Monthly revenue", "£120,000 and growing"]} colors={[WHITE, GREEN]} />
             <TableRow cols={["Overheads (August)", "£60,000/month"]} colors={[WHITE, CYAN]} />
             <TableRow cols={["Net cashflow", "£60,000+/month"]} colors={[WHITE, GREEN]} />
+            <TableRow cols={["Open banking auto-billing", "Zero human touch — award to cash"]} colors={[WHITE, GOLD]} />
             <TableRow cols={["AI staff savings", "£300K/year (12 roles replaced)"]} colors={[WHITE, GOLD]} />
-            <TableRow cols={["CapEx remaining", "Zero — all equipment paid"]} colors={[WHITE, GREEN]} />
             <TableRow cols={["External investors", "None — only your £15K"]} colors={[WHITE, PURPLE]} />
           </div>
         </FadeIn>
