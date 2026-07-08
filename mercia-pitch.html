@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silverwings Venture Foundry &mdash; Mercia Investment Memo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#fff; --surface:#f8fafc; --border:#e2e8f0;
+    --text:#0f172a; --dim:#64748b; --accent:#0066ff;
+    --green:#059669; --red:#dc2626; --purple:#7c3aed;
+    --gold:#d97706; --cyan:#0891b2; --navy:#0f172a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+  @media print{.no-print{display:none}.page-break{page-break-before:always}body{font-size:10pt}.container{max-width:100%;padding:0 1cm}}
+  .container{max-width:880px;margin:0 auto;padding:0 2rem}
+
+  /* Header */
+  .header{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;padding:3.5rem 0 2.5rem;text-align:center}
+  .header .conf{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#94a3b8;margin-bottom:1.5rem}
+  .header h1{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;margin-bottom:.5rem}
+  .header .sub{font-size:1.15rem;color:#94a3b8;font-weight:400}
+  .header .fund-badge{display:inline-block;margin-top:1.5rem;background:rgba(0,102,255,.15);border:1px solid rgba(0,102,255,.3);color:#60a5fa;padding:6px 20px;border-radius:99px;font-size:.85rem;font-weight:600}
+
+  h2{font-size:1.4rem;font-weight:700;margin:3rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--accent)}
+  h3{font-size:1.1rem;font-weight:600;margin:1.5rem 0 .75rem;color:var(--accent)}
+
+  p{margin-bottom:1rem}
+  table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.88rem}
+  th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+  th{background:var(--surface);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--dim)}
+
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin:1rem 0}
+  .card-green{border-left:4px solid var(--green)}
+  .card-gold{border-left:4px solid var(--gold)}
+  .card-purple{border-left:4px solid var(--purple)}
+  .card-accent{border-left:4px solid var(--accent)}
+
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:1rem 0}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:1rem 0}
+  @media(max-width:768px){.grid-3,.grid-2{grid-template-columns:1fr}}
+  .metric{text-align:center;padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+  .metric-val{font-size:2.2rem;font-weight:800}
+  .metric-label{font-size:.82rem;color:var(--dim);margin-top:4px}
+
+  .tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.72rem;font-weight:600}
+  .tag-live{background:#d1fae5;color:#065f46}
+  .tag-build{background:#dbeafe;color:#1e40af}
+  .tag-plan{background:#fef3c7;color:#92400e}
+
+  ul{margin:.5rem 0 1rem 1.5rem}li{margin-bottom:.4rem}
+  .highlight{background:linear-gradient(120deg,rgba(0,102,255,.08),rgba(124,58,237,.06));padding:2px 6px;border-radius:4px;font-weight:600}
+  code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.88em;font-family:'JetBrains Mono',monospace}
+
+  .footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--border);color:var(--dim);font-size:.85rem;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="conf">Confidential &mdash; Investment Memo</div>
+  <h1>Silverwings Venture Foundry</h1>
+  <div class="sub">AI-powered SaaS spin-out engine backed by cashflow-positive benefits operation</div>
+  <div class="fund-badge">North East Accelerate Fund &mdash; Mercia</div>
+</div>
+
+<div class="container">
+
+<!-- ─── EXECUTIVE SUMMARY ─── -->
+<h2>Executive Summary</h2>
+
+<div class="grid-3">
+  <div class="metric"><div class="metric-val" style="color:var(--accent)">&pound;750K</div><div class="metric-label">Investment Ask</div></div>
+  <div class="metric"><div class="metric-val" style="color:var(--green)">7</div><div class="metric-label">SaaS Products in Pipeline</div></div>
+  <div class="metric"><div class="metric-val" style="color:var(--purple)">&pound;4&ndash;8M</div><div class="metric-label">Year 3 ARR Target</div></div>
+</div>
+
+<p>Silverwings started as a benefits claims service. That service is now <strong>cashflow-positive</strong>, approaching &pound;100K/month, and growing. But the real value isn't the claims &mdash; it's the <strong>technology stack we built to automate them</strong>.</p>
+
+<p>Every tool we built to run Silverwings faster &mdash; the CRM, the code scanner, the voice AI agents, the compliance engine &mdash; turns out to be a standalone SaaS product that other businesses need.</p>
+
+<div class="card card-accent">
+  <p><strong>The thesis:</strong> Silverwings Benefits generates cashflow. The Venture Foundry spins out SaaS products from the technology stack. Each spin-out has its own market, its own revenue, and its own exit potential. The &pound;750K accelerates the spin-outs from "built" to "selling."</p>
+</div>
+
+<!-- ─── WHY MERCIA SHOULD CARE ─── -->
+<h2>What Chris Saw in the Meeting</h2>
+
+<p>Three things lit up in the meeting &mdash; all three are products we've already built:</p>
+
+<div class="card card-green">
+  <h3 style="margin-top:0">1. Thuban &mdash; AI Code Verification</h3>
+  <p>Chris mentioned that <strong>Mercia literally paid for code due diligence yesterday</strong> on a portfolio investment. Thuban does exactly that &mdash; automated, instant, at a fraction of the cost.</p>
+  <ul>
+    <li><strong>Already launched.</strong> Live on npm. Stripe payments wired. Website live at thuban.dev.</li>
+    <li><strong>Pricing:</strong> Free / $9 Pro / $49 Team / $299 Enterprise + $299-$999 one-off investor reports</li>
+    <li><strong>10 languages, 69 security rules, AI hallucination detection</strong> &mdash; the only scanner purpose-built for AI-generated code</li>
+    <li><strong>Direct relevance to Mercia:</strong> Every investment they make requires code due diligence. Thuban provides it in minutes, not weeks.</li>
+  </ul>
+  <p><strong>Status:</strong> <span class="tag tag-live">LAUNCHED</span> &mdash; needs marketing push, not more development.</p>
+</div>
+
+<div class="card card-green">
+  <h3 style="margin-top:0">2. AI Sales Agents &mdash; The SDR Killer</h3>
+  <p>Mercia's portfolio companies <strong>burn through SDRs in an average of 14 months</strong>. Our voice AI agents qualify leads at machine speed, 24/7, with zero churn.</p>
+  <ul>
+    <li><strong>Already built.</strong> Triage agent running in production for Silverwings. LiveKit + OpenAI Realtime + Twilio integration.</li>
+    <li><strong>Speed-to-lead:</strong> Responds in under 2 seconds. Qualifies in under 3 minutes. Hands off warm leads to humans.</li>
+    <li><strong>Cost:</strong> ~&pound;0.30 per qualified conversation vs ~&pound;25-50 per SDR conversation</li>
+    <li><strong>Direct relevance to Mercia:</strong> Deployable to any portfolio company with an inbound sales funnel. Immediate portfolio value creation.</li>
+  </ul>
+  <p><strong>Status:</strong> <span class="tag tag-build">PRODUCTION-READY</span> &mdash; running internally, needs productisation for external sale.</p>
+</div>
+
+<div class="card card-green">
+  <h3 style="margin-top:0">3. Navisynth &mdash; Voice Agent Compiler</h3>
+  <p>The platform that <em>builds</em> the voice agents. Feed it a company's real call recordings, and it compiles a voice agent trained on their actual data, tone, and processes.</p>
+  <ul>
+    <li><strong>Full SaaS architecture:</strong> FastAPI backend, Next.js dashboard, microservices, Terraform infrastructure, CI/CD</li>
+    <li><strong>The meta-product:</strong> Instead of selling one agent at a time, sell the platform that creates agents</li>
+    <li><strong>Market:</strong> Every contact centre, every sales team, every support desk</li>
+  </ul>
+  <p><strong>Status:</strong> <span class="tag tag-build">BUILDING</span> &mdash; 2-3 weeks from live testing with real data.</p>
+</div>
+
+<!-- ─── THE PORTFOLIO ─── -->
+<h2>The Spin-Out Portfolio</h2>
+
+<table>
+  <thead>
+    <tr><th>Product</th><th>What It Does</th><th>Market</th><th>Revenue Model</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Thuban</strong></td>
+      <td>AI code verification &amp; investor due diligence</td>
+      <td>Every software company, every VC/PE fund</td>
+      <td>SaaS $9-299/mo + reports $299-999</td>
+      <td><span class="tag tag-live">LIVE</span></td>
+    </tr>
+    <tr>
+      <td><strong>SickDay.AI</strong></td>
+      <td>UK absence compliance engine (Bradford Factor, SSP, Equality Act)</td>
+      <td>1.3M UK SMBs with 10+ employees</td>
+      <td>SaaS &pound;1-5/employee/month</td>
+      <td><span class="tag tag-build">MVP 6 WEEKS</span></td>
+    </tr>
+    <tr>
+      <td><strong>Navisynth</strong></td>
+      <td>Voice agent compiler from real call data</td>
+      <td>Contact centres, sales teams globally</td>
+      <td>SaaS &pound;500-5,000/month</td>
+      <td><span class="tag tag-build">BETA 3 WEEKS</span></td>
+    </tr>
+    <tr>
+      <td><strong>AI Sales Agents</strong></td>
+      <td>Automated SDR / lead qualification</td>
+      <td>Any B2B company with inbound leads</td>
+      <td>SaaS &pound;500-2,000/month</td>
+      <td><span class="tag tag-build">PRODUCTION</span></td>
+    </tr>
+    <tr>
+      <td><strong>Bellatrix</strong></td>
+      <td>AI business watchdog &mdash; crawls Google, HubSpot, QuickBooks, Stripe, Xero</td>
+      <td>SMBs needing real-time business intelligence</td>
+      <td>SaaS &pound;49-299/month</td>
+      <td><span class="tag tag-build">BUILDING</span></td>
+    </tr>
+    <tr>
+      <td><strong>Mintaka</strong></td>
+      <td>Creative intelligence OS for advertising</td>
+      <td>Marketing agencies, in-house creative teams</td>
+      <td>SaaS &pound;99-499/month</td>
+      <td><span class="tag tag-plan">EARLY</span></td>
+    </tr>
+    <tr>
+      <td><strong>Saiph</strong></td>
+      <td>"Business in a box" &mdash; automated company setup (Stripe, Clerk, domains)</td>
+      <td>Startup founders, serial entrepreneurs</td>
+      <td>SaaS &pound;49-299/month</td>
+      <td><span class="tag tag-plan">EARLY</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ─── FINANCIALS ─── -->
+<h2>Financial Projections</h2>
+
+<h3>Silverwings Benefits (Cashflow Engine)</h3>
+<table>
+  <thead><tr><th></th><th>Current</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr></thead>
+  <tbody>
+    <tr><td>Monthly Revenue</td><td>&pound;80-100K</td><td>&pound;150K</td><td>&pound;300K</td><td>&pound;500K</td></tr>
+    <tr><td>Annual Revenue</td><td>&pound;1M run-rate</td><td>&pound;1.8M</td><td>&pound;3.6M</td><td>&pound;6M</td></tr>
+    <tr><td>Net Margin</td><td>~65%</td><td>~70%</td><td>~75%</td><td>~80%</td></tr>
+    <tr><td>Role</td><td colspan="4"><em>Generates cashflow to fund spin-outs. Not the valuation driver.</em></td></tr>
+  </tbody>
+</table>
+
+<h3>SaaS Spin-Outs (Valuation Driver)</h3>
+<table>
+  <thead><tr><th></th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Thuban</strong></td><td>&pound;200K ARR</td><td>&pound;800K ARR</td><td>&pound;2M ARR</td></tr>
+    <tr><td><strong>SickDay.AI</strong></td><td>&pound;100K ARR</td><td>&pound;600K ARR</td><td>&pound;2M ARR</td></tr>
+    <tr><td><strong>Navisynth / AI Agents</strong></td><td>&pound;150K ARR</td><td>&pound;800K ARR</td><td>&pound;3M ARR</td></tr>
+    <tr><td><strong>Bellatrix + Others</strong></td><td>&pound;50K ARR</td><td>&pound;300K ARR</td><td>&pound;1M ARR</td></tr>
+    <tr style="font-weight:700;background:#f0fdf4">
+      <td><strong>Total SaaS ARR</strong></td><td><strong>&pound;500K</strong></td><td><strong>&pound;2.5M</strong></td><td><strong>&pound;8M</strong></td>
+    </tr>
+    <tr style="font-weight:700;background:#eff6ff">
+      <td><strong>Valuation (10-15x ARR)</strong></td><td><strong>&pound;5-7.5M</strong></td><td><strong>&pound;25-37M</strong></td><td><strong>&pound;80-120M</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="card card-gold">
+  <h3 style="margin-top:0">The EBITDA to ARR Multiple Shift</h3>
+  <p>A benefits services business trades at <strong>3-5x EBITDA</strong>. A SaaS business with 100%+ growth trades at <strong>10-15x ARR</strong>.</p>
+  <p>At &pound;6M benefits revenue + &pound;8M SaaS ARR, the combined entity is worth <strong>&pound;80-120M</strong> rather than the &pound;6-10M it would be valued at as a pure services business.</p>
+  <p><strong>That's the entire play. The &pound;750K buys Mercia a seat on the rocket as it transitions from EBITDA to ARR multiples.</strong></p>
+</div>
+
+<!-- ─── USE OF FUNDS ─── -->
+<h2>Use of &pound;750K</h2>
+
+<table>
+  <thead><tr><th>Category</th><th>Amount</th><th>Detail</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Software Development</strong></td><td>&pound;350K</td><td>3 senior developers (12 months) to accelerate SickDay.AI, Navisynth, and Bellatrix from built to selling</td></tr>
+    <tr><td><strong>Go-to-Market</strong></td><td>&pound;200K</td><td>Thuban launch campaign (HN, ProductHunt, dev newsletters), SickDay.AI content marketing, Navisynth B2B sales</td></tr>
+    <tr><td><strong>Infrastructure</strong></td><td>&pound;100K</td><td>Cloud compute (GCP), CI/CD, monitoring, security certifications for enterprise sales</td></tr>
+    <tr><td><strong>Working Capital</strong></td><td>&pound;100K</td><td>Bridge cashflow during ITV marketing ramp (matched &pound;-for-&pound; advertising)</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── TEAM ─── -->
+<h2>Team</h2>
+
+<div class="grid-2">
+  <div class="card">
+    <h3 style="margin-top:0">Craig Lowther &mdash; CEO &amp; Technical Founder</h3>
+    <p>Based in Tynemouth. Built the entire technology stack. NOVA CRM (1,299 commits), 7 SaaS products in development, voice AI pipeline, 400K+ lines of production code. Former financial services background. The rare founder who can both build the technology and understand the commercial model.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Darren Cleugh &mdash; Managing Director</h3>
+    <p>Commercial leadership. Business development, partnerships, investor relations. Managing the ITV advertising relationship and Mercia engagement.</p>
+  </div>
+</div>
+<div class="grid-2">
+  <div class="card">
+    <h3 style="margin-top:0">Kenny &mdash; CTO</h3>
+    <p>Technical leadership. QA, architecture review, development team management. Validated Thuban through rigorous testing (0.4.7 QA report). Gates all products from development to launch.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Development Team</h3>
+    <p>Software engineers (Tom, Chris, Rebecca) working across the spin-out portfolio. Additional hires planned with investment.</p>
+  </div>
+</div>
+
+<!-- ─── MERCIA VALUE-ADD ─── -->
+<h2>Why Mercia Is the Right Partner</h2>
+
+<div class="card card-purple">
+  <h3 style="margin-top:0">Portfolio Synergies</h3>
+  <ul>
+    <li><strong>Thuban for portfolio companies:</strong> Every Mercia investment requiring code due diligence can use Thuban. Instant cost reduction in the investment process.</li>
+    <li><strong>AI sales agents for portfolio:</strong> Deploy to any portfolio company burning through SDRs. Immediate value creation across the fund.</li>
+    <li><strong>SickDay.AI for portfolio:</strong> Every portfolio company with UK employees needs absence compliance. Built-in distribution channel.</li>
+    <li><strong>North East based:</strong> Craig is in Tynemouth, business registered in North Tyneside. Local jobs in software development and marketing.</li>
+  </ul>
+</div>
+
+<!-- ─── WHAT'S ALREADY BUILT ─── -->
+<h2>What's Already Built (Not Planned &mdash; Built)</h2>
+
+<div class="grid-3">
+  <div class="metric"><div class="metric-val" style="color:var(--accent)">400K+</div><div class="metric-label">Lines of Production Code</div></div>
+  <div class="metric"><div class="metric-val" style="color:var(--green)">2,400+</div><div class="metric-label">Git Commits</div></div>
+  <div class="metric"><div class="metric-val" style="color:var(--purple)">24</div><div class="metric-label">Working Codebases</div></div>
+</div>
+
+<p>This is not a pitch deck with wireframes. Every product described in this memo has working code, real architecture, and in several cases, paying customers or live deployments.</p>
+
+<table>
+  <thead><tr><th>Evidence</th><th>Detail</th></tr></thead>
+  <tbody>
+    <tr><td>NOVA CRM</td><td>1,299 commits, 522MB codebase, running in production daily</td></tr>
+    <tr><td>Thuban</td><td>Live on npm (npmjs.com/package/thuban), Stripe payments active, 526 tests passing</td></tr>
+    <tr><td>Voice AI Stack</td><td>Production voice agents handling real calls via Twilio + OpenAI Realtime</td></tr>
+    <tr><td>SickDay.AI</td><td>12-model database, 6 working API routers, Bradford/SSP engines, import pipeline</td></tr>
+    <tr><td>Navisynth</td><td>Full SaaS: FastAPI, Next.js, microservices, Terraform, Docker, CI/CD</td></tr>
+    <tr><td>Form Automation</td><td>Headless browser submission of UK government benefit forms, 94% success rate</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── RISK MITIGATION ─── -->
+<h2>Risk Mitigation</h2>
+
+<table>
+  <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+  <tbody>
+    <tr><td>"Paid-for-services" scaling problem</td><td>Benefits operation funds SaaS development. SaaS products scale independently without human capital constraints. Revenue shifts from EBITDA to ARR over 18 months.</td></tr>
+    <tr><td>Founder concentration risk</td><td>Kenny (CTO) and dev team already operational. Architecture documented. Products designed for team-based development.</td></tr>
+    <tr><td>Market risk</td><td>Thuban already live with real users. SickDay.AI addresses proven market (1.3M UK SMBs). Voice AI is fastest-growing AI category.</td></tr>
+    <tr><td>Cash risk</td><td>Benefits operation generating &pound;80-100K/month. ITV matched advertising accelerating growth. &pound;750K extends runway by 18+ months even without SaaS revenue.</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── TIMELINE ─── -->
+<h2>12-Month Milestone Plan</h2>
+
+<table>
+  <thead><tr><th>Quarter</th><th>Milestone</th><th>ARR Target</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Q1</strong></td><td>Thuban public launch (HN, ProductHunt). SickDay.AI MVP live. Navisynth beta with real data. Hire 2 developers.</td><td>&pound;50K</td></tr>
+    <tr><td><strong>Q2</strong></td><td>Thuban: 500+ Pro subscribers. SickDay.AI: 50 paying companies. Navisynth: 5 pilot customers. Deploy AI agents to 2 Mercia portfolio companies.</td><td>&pound;150K</td></tr>
+    <tr><td><strong>Q3</strong></td><td>Thuban Team tier traction. SickDay.AI: 200 companies. Navisynth: 15 customers. Bellatrix beta launch.</td><td>&pound;350K</td></tr>
+    <tr><td><strong>Q4</strong></td><td>Total SaaS ARR &pound;500K+. Benefits revenue &pound;2M+ annualised. Combined valuation &pound;5-7.5M. Position for Series A or remain self-funded.</td><td>&pound;500K</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── THE ASK ─── -->
+<h2>The Ask</h2>
+
+<div class="card" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,#eff6ff,#f0fdf4)">
+  <div style="font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:.5rem">&pound;750,000 for equity in Silverwings Venture Foundry</div>
+  <p>Share purchase in the holding entity that owns the benefits operation AND all SaaS spin-outs. Mercia gets exposure to the entire portfolio through a single investment.</p>
+  <ul>
+    <li><strong>Use of funds:</strong> Accelerate 3 SaaS products from built to selling</li>
+    <li><strong>Job creation:</strong> 3-5 software development and marketing roles in North Tyneside</li>
+    <li><strong>De-risked:</strong> Benefits cashflow covers operating costs. Investment goes entirely to growth.</li>
+    <li><strong>Exit pathway:</strong> Individual SaaS spin-outs acquired (Thuban by Snyk/Sonar, SickDay by BreatheHR/Personio, Navisynth by Twilio/Five9) or combined entity Series A at &pound;25M+ valuation in 24-36 months.</li>
+  </ul>
+</div>
+
+<div class="footer">
+  <p><strong>Silverwings Venture Foundry</strong> &bull; North Tyneside &bull; Confidential</p>
+  <p style="margin-top:.5rem">Contact: Craig Lowther (CEO) &bull; Darren Cleugh (MD)</p>
+  <p style="margin-top:1rem;font-style:italic;color:#94a3b8">No food, no dream. No dream, no food.</p>
+</div>
+
+</div>
+</body>
+</html>
