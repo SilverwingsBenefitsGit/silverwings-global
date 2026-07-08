@@ -126,7 +126,7 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={45}>
           <MetricRow items={[
-            { label: "Last 12 Months", value: "£910K", color: GREEN },
+            { label: "13 Months (Verified)", value: "£929K", color: GREEN },
             { label: "Success Rate", value: "94%", color: CYAN },
             { label: "CAC", value: "£40", color: GOLD },
           ]} />
@@ -364,7 +364,7 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={70}>
           <div style={{ marginTop: 40, fontSize: 22, color: PURPLE, fontWeight: 600, textAlign: "center" }}>
-            De-risked by £910K revenue last 12 months. Pure SaaS upside.
+            De-risked by £929K bank-verified deposits. 12 staff replaced by AI. Pure SaaS upside.
           </div>
         </FadeIn>
       </SceneWrap>

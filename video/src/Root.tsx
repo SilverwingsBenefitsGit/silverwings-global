@@ -4,6 +4,8 @@ import { GlobalExpansion } from "./GlobalExpansion";
 import { Constellation } from "./Constellation";
 import { KennyDarrenBriefing } from "./KennyDarrenBriefing";
 import { MerciaPitch } from "./MerciaPitch";
+import { PayPalPitch } from "./PayPalPitch";
+import { IrenePitch } from "./IrenePitch";
 
 export const Root: React.FC = () => (
   <>
@@ -35,6 +37,22 @@ export const Root: React.FC = () => (
       id="MerciaPitch"
       component={MerciaPitch}
       durationInFrames={2910}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
+    <Composition
+      id="PayPalPitch"
+      component={PayPalPitch}
+      durationInFrames={2610}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
+    <Composition
+      id="IrenePitch"
+      component={IrenePitch}
+      durationInFrames={2700}
       fps={30}
       width={1920}
       height={1080}
