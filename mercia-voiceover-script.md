@@ -7,10 +7,10 @@
 Silverwings Venture Foundry. A confidential investment overview for Mercia and the North East Accelerate Fund.
 
 ## Scene 2: The Origin (4–10s)
-We started by building a benefits claims business. Voice AI interviews elderly clients, enhances their answers with artificial intelligence, and submits applications online. Ninety-four percent success rate. Approaching one hundred thousand pounds a month in revenue. Customer acquisition cost: forty pounds.
+We started by building a benefits claims business. Nine hundred and ten thousand pounds in the last twelve months. Voice AI interviews elderly clients, enhances their answers with artificial intelligence, and submits applications online. Ninety-four percent success rate. Approaching one hundred thousand pounds a month. Customer acquisition cost: forty pounds.
 
 ## Scene 3: The Insight (10–16s)
-But here's what we discovered. The real value isn't the claims operation. It's the technology stack we built to automate it. Every internal tool we created — the CRM, the code scanner, the voice agents, the compliance engine — each one is a standalone SaaS product that other businesses need.
+But here's what we discovered. The real value isn't the claims operation. It's the technology stack we built to automate it. Every internal tool we created — the ERP we built from scratch saving forty-five thousand a year, the code scanner, the voice agents, the compliance engine — each one is a standalone SaaS product that other businesses need.
 
 ## Scene 4: EBITDA to ARR (16–24s)
 This changes the valuation model entirely. A paid-for-services business trades at three to five times EBITDA. A SaaS business with strong growth trades at ten to fifteen times annual recurring revenue. Same company. Same team. Same technology. Fundamentally different valuation.
@@ -28,13 +28,13 @@ Third: SickDay dot AI. The UK's first absence compliance engine. Bradford Factor
 In total, seven SaaS products in the pipeline. Year three combined target: eight million pounds in annual recurring revenue. At a ten to fifteen times multiple, that implies a valuation of eighty to one hundred and twenty million pounds. All built on technology that already exists.
 
 ## Scene 9: Use of Funds (62–72s)
-The ask: seven hundred and fifty thousand pounds. Three hundred and fifty thousand for software development — three senior developers for twelve months. Two hundred thousand for go-to-market. One hundred thousand for cloud infrastructure and security certifications. One hundred thousand in working capital to bridge the ITV marketing ramp. The benefits operation covers all operating costs. Every pound of investment goes directly to growth.
+The ask: one million pounds. Four hundred and fifty thousand for software development — four senior developers for twelve months. Two hundred and fifty thousand for go-to-market. One hundred and fifty thousand for cloud infrastructure and security certifications. One hundred and fifty thousand in working capital to bridge the ITV marketing ramp. Plus, every company in the Mercia portfolio gets twelve months of free Thuban code audits. The benefits operation covers all operating costs. Every pound of investment goes directly to growth.
 
 ## Scene 10: Portfolio Synergies (72–80s)
 Mercia is the right partner because the value flows both ways. Thuban provides code due diligence across the portfolio. AI agents deploy to companies with SDR churn. SickDay serves every portfolio company with UK employees. And the entire operation is based in North Tyneside, creating local jobs in software development and marketing.
 
 ## Scene 11: The Ask (80–90s)
-Seven hundred and fifty thousand pounds for equity in Silverwings Venture Foundry. Year one SaaS target: five hundred thousand. Year two: two point five million. Year three: eight million. De-risked by a cashflow-positive benefits operation generating over a million pounds annually.
+One million pounds for equity in Silverwings Venture Foundry. Year one SaaS target: five hundred thousand. Year two: two point five million. Year three: eight million. De-risked by a cashflow-positive benefits operation that's turned over nine hundred and ten thousand pounds in the last twelve months.
 
 ## Scene 12: Close (90–97s)
 Silverwings Venture Foundry. Craig Lowther, CEO and Technical Founder. Darren Cleugh, Managing Director. No food, no dream. No dream, no food.

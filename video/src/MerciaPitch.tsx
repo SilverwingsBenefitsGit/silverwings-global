@@ -126,7 +126,7 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={45}>
           <MetricRow items={[
-            { label: "Monthly Revenue", value: "£100K", color: GREEN },
+            { label: "Last 12 Months", value: "£910K", color: GREEN },
             { label: "Success Rate", value: "94%", color: CYAN },
             { label: "CAC", value: "£40", color: GOLD },
           ]} />
@@ -285,21 +285,26 @@ export const MerciaPitch: React.FC = () => {
 
       {/* Scene 9: Use of Funds (62–72s) */}
       <SceneWrap from={1860} dur={300}>
-        <Label>Use of £750K</Label>
+        <Label>Use of £1M</Label>
         <FadeIn delay={5}>
           <Title size={48}>From Built to Selling</Title>
         </FadeIn>
         <FadeIn delay={20}>
           <div style={{ marginTop: 40, width: "100%" }}>
             <TableRow cols={["Category", "Amount", "Impact"]} colors={[DIM, DIM, DIM]} bold />
-            <TableRow cols={["Software Development", "£350K", "3 developers × 12 months"]} colors={[WHITE, GREEN, DIM]} />
-            <TableRow cols={["Go-to-Market", "£200K", "Launch campaigns + B2B sales"]} colors={[WHITE, GREEN, DIM]} />
-            <TableRow cols={["Infrastructure", "£100K", "Cloud, CI/CD, security certs"]} colors={[WHITE, GREEN, DIM]} />
-            <TableRow cols={["Working Capital", "£100K", "ITV marketing bridge"]} colors={[WHITE, GREEN, DIM]} />
+            <TableRow cols={["Software Development", "£450K", "4 developers × 12 months"]} colors={[WHITE, GREEN, DIM]} />
+            <TableRow cols={["Go-to-Market", "£250K", "Launch campaigns + B2B sales"]} colors={[WHITE, GREEN, DIM]} />
+            <TableRow cols={["Infrastructure", "£150K", "Cloud, CI/CD, security certs"]} colors={[WHITE, GREEN, DIM]} />
+            <TableRow cols={["Working Capital", "£150K", "ITV marketing bridge"]} colors={[WHITE, GREEN, DIM]} />
           </div>
         </FadeIn>
         <FadeIn delay={50}>
-          <div style={{ marginTop: 30, fontSize: 20, color: CYAN, fontWeight: 600, textAlign: "center" }}>
+          <div style={{ marginTop: 20, fontSize: 18, color: GOLD, fontWeight: 600, textAlign: "center" }}>
+            + 12 months free Thuban code audits across the entire Mercia portfolio
+          </div>
+        </FadeIn>
+        <FadeIn delay={65}>
+          <div style={{ marginTop: 12, fontSize: 20, color: CYAN, fontWeight: 600, textAlign: "center" }}>
             Benefits cashflow covers operating costs. Every pound of investment goes to growth.
           </div>
         </FadeIn>
@@ -334,7 +339,7 @@ export const MerciaPitch: React.FC = () => {
       <SceneWrap from={2400} dur={300}>
         <Label>The Ask</Label>
         <FadeIn delay={10}>
-          <Title size={72}>£750,000</Title>
+          <Title size={72}>£1,000,000</Title>
         </FadeIn>
         <FadeIn delay={25}>
           <Sub>Equity in Silverwings Venture Foundry</Sub>
@@ -359,7 +364,7 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={70}>
           <div style={{ marginTop: 40, fontSize: 22, color: PURPLE, fontWeight: 600, textAlign: "center" }}>
-            De-risked by cashflow-positive benefits operation. Pure SaaS upside.
+            De-risked by £910K revenue last 12 months. Pure SaaS upside.
           </div>
         </FadeIn>
       </SceneWrap>
