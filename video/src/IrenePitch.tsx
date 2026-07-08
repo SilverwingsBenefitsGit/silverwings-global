@@ -130,9 +130,9 @@ export const IrenePitch: React.FC = () => {
         <Label>Where Your £15,000 Got Us</Label>
         <FadeIn delay={5}>
           <MetricRow items={[
-            { label: "Bank-Verified Deposits", value: "£929K", color: GREEN },
+            { label: "Client Revenue (Verified)", value: "£809K", color: GREEN },
             { label: "Monthly Revenue", value: "£120K", color: CYAN },
-            { label: "Return On Your Seed", value: "62×", color: PURPLE },
+            { label: "Return On Your Seed", value: "54×", color: PURPLE },
           ]} />
         </FadeIn>
         <FadeIn delay={35}>
@@ -371,7 +371,7 @@ export const IrenePitch: React.FC = () => {
           <div style={{ fontSize: 22, color: LIGHT_PURPLE, fontWeight: 600, marginBottom: 20 }}>From your £15,000</div>
         </FadeIn>
         <FadeIn delay={25}>
-          <Title size={56}>£929K in Revenue.<br/>1,000 People Helped.<br/>24 Products Built.</Title>
+          <Title size={56}>£809K in Revenue.<br/>1,000 People Helped.<br/>24 Products Built.</Title>
         </FadeIn>
         <FadeIn delay={50}>
           <div style={{ marginTop: 30, fontSize: 22, color: DIM }}>

@@ -122,7 +122,7 @@ export const PayPalPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={30}>
           <MetricRow items={[
-            { label: "Bank-Verified Deposits", value: "£929K", color: GREEN },
+            { label: "Client Revenue (13mo)", value: "£809K", color: GREEN },
             { label: "Working Products", value: "24+", color: CYAN },
             { label: "Monthly Revenue", value: "£120K", color: PP_GOLD },
           ]} />
