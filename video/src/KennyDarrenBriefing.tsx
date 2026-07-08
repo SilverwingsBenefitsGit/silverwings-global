@@ -49,7 +49,7 @@ const TitleSlide: React.FC = () => {
           The Orion<br/>Constellation
         </div>
         <div style={{ fontSize: 24, color: "#888", maxWidth: 600 }}>
-          19 ventures. One loop. One founder. Zero external capital.
+          24+ ventures. One loop. One founder. Zero external capital.
         </div>
         <div style={{
           marginTop: 60, fontSize: 22, fontStyle: "italic", color: "#c0c0c0",
@@ -67,8 +67,8 @@ const StatsSlide: React.FC = () => {
   const frame = useCurrentFrame();
 
   const stats = [
-    { n: "19", label: "Active Ventures" },
-    { n: "£100k", label: "Monthly Revenue" },
+    { n: "24+", label: "Active Ventures" },
+    { n: "£120k", label: "Monthly Revenue" },
     { n: "94%", label: "Success Rate" },
     { n: "100%", label: "Founder Owned" },
   ];
@@ -117,7 +117,7 @@ const StatsSlide: React.FC = () => {
 const LoopSlide: React.FC = () => {
   const opacity = useFade();
   const frame = useCurrentFrame();
-  const nodes = ["Praxis", "Senate", "Orion", "Thuban", "Saiph", "NaviSynth", "Mintaka", "Pyxis", "Bellatrix", "Nova", "Silverwings"];
+  const nodes = ["Praxis", "Senate", "Orion", "Thuban", "Saiph", "NaviSynth", "Mintaka", "Pyxis", "Bellatrix", "Nova", "Silverwings", "Remain", "SickDay.AI", "Rigel"];
 
   return (
     <Scene>
@@ -128,7 +128,7 @@ const LoopSlide: React.FC = () => {
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12 }}>
           {nodes.map((name, i) => {
-            const delay = i * 5;
+            const delay = i * 4;
             const o = interpolate(frame, [delay, delay + 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
             const scale = interpolate(frame, [delay, delay + 10], [0.8, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
             return (
@@ -136,22 +136,95 @@ const LoopSlide: React.FC = () => {
                 <div style={{
                   opacity: o, transform: `scale(${scale})`,
                   background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)",
-                  borderRadius: 10, padding: "12px 24px", color: "#c0c0c0", fontSize: 18, fontWeight: 500,
+                  borderRadius: 10, padding: "10px 20px", color: "#c0c0c0", fontSize: 16, fontWeight: 500,
                 }}>
                   {name}
                 </div>
                 {i < nodes.length - 1 && (
-                  <div style={{ opacity: o, color: "rgba(255,255,255,0.2)", fontSize: 24, display: "flex", alignItems: "center" }}>→</div>
+                  <div style={{ opacity: o, color: "rgba(255,255,255,0.2)", fontSize: 20, display: "flex", alignItems: "center" }}>→</div>
                 )}
               </React.Fragment>
             );
           })}
           <div style={{
-            opacity: interpolate(frame, [55, 65], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
-            color: "#c0c0c0", fontSize: 18, display: "flex", alignItems: "center", marginLeft: 8,
+            opacity: interpolate(frame, [60, 70], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
+            color: "#c0c0c0", fontSize: 16, display: "flex", alignItems: "center", marginLeft: 8,
           }}>
             ↻ back to Praxis
           </div>
+        </div>
+      </div>
+    </Scene>
+  );
+};
+
+/* ─── Full constellation by category ─── */
+const ConstellationSlide: React.FC = () => {
+  const opacity = useFade();
+  const frame = useCurrentFrame();
+
+  const categories = [
+    { title: "Revenue Engines", color: "#4ade80", brands: [
+      "Silverwings Benefits — £120K/mo, 94% success, ITV deal",
+      "Life Events Platform — weddings + funerals, $550B TAM",
+      "Remain — human compilation, talk to yourself after death",
+    ]},
+    { title: "SaaS Products", color: "#fbbf24", brands: [
+      "Thuban — AI code verification, live on npm",
+      "SickDay.AI — absence management, Bradford Factor + AI",
+      "NaviSynth — voice agent compiler from real data",
+      "Mintaka — AI sales qualification at machine speed",
+      "Rigel — automated marketing engine",
+      "QuoteBuilder — instant pricing & proposals",
+      "Bellatrix — digital COO, living dashboard",
+    ]},
+    { title: "Intelligence Layer", color: "#c084fc", brands: [
+      "Orion — the foundry, persistent state, memory",
+      "Prometheus — AI substrate, reasoning engine",
+      "Praxis Human — human compilation framework",
+      "Senate — venture ideation & validation",
+      "The Imaginarium — creative engine",
+    ]},
+    { title: "Builders & Infrastructure", color: "#38bdf8", brands: [
+      "Nova — ERP, replaced £45K/yr Zoho",
+      "Saiph — automated venture builder",
+      "Pyxis — data pipeline & integration",
+      "Afterlight — mobile compilation app",
+    ]},
+    { title: "The Dream", color: "#f472b6", brands: [
+      "Best Mate — robot Craig, surfs, devs, gets pints in",
+      "Grail Defence — [Classified]",
+    ]},
+  ];
+
+  return (
+    <Scene>
+      <div style={{ opacity, width: "100%" }}>
+        <div style={{ fontSize: 38, fontWeight: 600, color: "#fff", marginBottom: 30, textAlign: "center" }}>
+          The Full Constellation — Every Brand
+        </div>
+        <div style={{ display: "flex", gap: 20, flexWrap: "wrap", justifyContent: "center" }}>
+          {categories.map((cat, ci) => {
+            const delay = ci * 12;
+            const o = interpolate(frame, [delay, delay + 15], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+            const y = interpolate(frame, [delay, delay + 15], [20, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+            return (
+              <div key={ci} style={{
+                opacity: o, transform: `translateY(${y}px)`,
+                background: "rgba(255,255,255,0.03)", border: `1px solid ${cat.color}33`,
+                borderRadius: 12, padding: "16px 20px", minWidth: 320, maxWidth: 340,
+              }}>
+                <div style={{ fontSize: 16, fontWeight: 700, color: cat.color, marginBottom: 10, textTransform: "uppercase", letterSpacing: 2 }}>
+                  {cat.title}
+                </div>
+                {cat.brands.map((b, bi) => (
+                  <div key={bi} style={{ fontSize: 13, color: "#b0b0b8", marginBottom: 5, lineHeight: 1.4 }}>
+                    {b}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     </Scene>
@@ -296,11 +369,12 @@ export const KennyDarrenBriefing: React.FC = () => {
     <>
       <Audio src={staticFile("constellation-briefing-voiceover.mp3")} />
       <Sequence from={0} durationInFrames={10 * SEC}><TitleSlide /></Sequence>
-      <Sequence from={10 * SEC} durationInFrames={18 * SEC}><StatsSlide /></Sequence>
-      <Sequence from={28 * SEC} durationInFrames={22 * SEC}><LoopSlide /></Sequence>
-      <Sequence from={50 * SEC} durationInFrames={25 * SEC}><GlobalSlide /></Sequence>
-      <Sequence from={75 * SEC} durationInFrames={25 * SEC}><RobotSlide /></Sequence>
-      <Sequence from={100 * SEC} durationInFrames={20 * SEC}><DoctrineSlide /></Sequence>
+      <Sequence from={10 * SEC} durationInFrames={16 * SEC}><StatsSlide /></Sequence>
+      <Sequence from={26 * SEC} durationInFrames={18 * SEC}><LoopSlide /></Sequence>
+      <Sequence from={44 * SEC} durationInFrames={22 * SEC}><ConstellationSlide /></Sequence>
+      <Sequence from={66 * SEC} durationInFrames={20 * SEC}><GlobalSlide /></Sequence>
+      <Sequence from={86 * SEC} durationInFrames={20 * SEC}><RobotSlide /></Sequence>
+      <Sequence from={106 * SEC} durationInFrames={20 * SEC}><DoctrineSlide /></Sequence>
     </>
   );
 };
