@@ -1,14 +1,12 @@
 import React from "react";
 import {
-  AbsoluteFill, Audio, useCurrentFrame, useVideoConfig,
+  AbsoluteFill, Audio, Img, useCurrentFrame,
   interpolate, Sequence, staticFile,
 } from "remotion";
 
 /* ─── Palette (PayPal brand) ─── */
-const BG = "#0a0a1a";
 const WHITE = "#ffffff";
 const PP_BLUE = "#0070ba";
-const PP_NAVY = "#003087";
 const PP_GOLD = "#ffc439";
 const GREEN = "#00ff88";
 const CYAN = "#00f6ff";
@@ -27,42 +25,50 @@ const FadeIn: React.FC<{ children: React.ReactNode; delay?: number; dur?: number
   return <div style={{ opacity, transform: `translateY(${y}px)` }}>{children}</div>;
 };
 
-const SceneWrap: React.FC<{
-  children: React.ReactNode; from: number; dur: number; fadeIn?: number; fadeOut?: number;
-}> = ({ children, from, dur, fadeIn = 15, fadeOut = 15 }) => {
+const BGScene: React.FC<{
+  children: React.ReactNode; from: number; dur: number;
+  bg: string; overlay?: string; fadeIn?: number; fadeOut?: number;
+}> = ({ children, from, dur, bg, overlay = "rgba(0,0,0,0.6)", fadeIn = 15, fadeOut = 15 }) => {
   const frame = useCurrentFrame();
   const opacity = interpolate(frame, [0, fadeIn, dur - fadeOut, dur], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const scale = interpolate(frame, [0, dur], [1.0, 1.08], { extrapolateRight: "clamp" });
   return (
     <Sequence from={from} durationInFrames={dur}>
-      <AbsoluteFill style={{
-        opacity, background: BG, display: "flex", flexDirection: "column",
-        justifyContent: "center", alignItems: "center",
-        fontFamily: "'Inter', -apple-system, sans-serif", padding: "80px 120px",
-      }}>
-        {children}
+      <AbsoluteFill style={{ opacity }}>
+        <AbsoluteFill style={{ transform: `scale(${scale})`, transformOrigin: "center" }}>
+          <Img src={staticFile(bg)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        </AbsoluteFill>
+        <AbsoluteFill style={{ background: overlay }} />
+        <AbsoluteFill style={{
+          display: "flex", flexDirection: "column",
+          justifyContent: "center", alignItems: "center",
+          fontFamily: "'Inter', -apple-system, sans-serif", padding: "80px 120px",
+        }}>
+          {children}
+        </AbsoluteFill>
       </AbsoluteFill>
     </Sequence>
   );
 };
 
 const Label: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div style={{ fontSize: 14, fontWeight: 600, textTransform: "uppercase", letterSpacing: 4, color: PP_BLUE, marginBottom: 24 }}>{children}</div>
+  <div style={{ fontSize: 14, fontWeight: 600, textTransform: "uppercase", letterSpacing: 4, color: PP_BLUE, marginBottom: 24, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>{children}</div>
 );
 
 const Title: React.FC<{ children: React.ReactNode; size?: number }> = ({ children, size = 64 }) => (
-  <div style={{ fontSize: size, fontWeight: 800, color: WHITE, textAlign: "center", lineHeight: 1.15, letterSpacing: -1 }}>{children}</div>
+  <div style={{ fontSize: size, fontWeight: 800, color: WHITE, textAlign: "center", lineHeight: 1.15, letterSpacing: -1, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>{children}</div>
 );
 
 const Sub: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div style={{ fontSize: 24, color: DIM, textAlign: "center", marginTop: 20, maxWidth: 800, lineHeight: 1.5 }}>{children}</div>
+  <div style={{ fontSize: 24, color: "#ccc", textAlign: "center", marginTop: 20, maxWidth: 800, lineHeight: 1.5, textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>{children}</div>
 );
 
 const MetricRow: React.FC<{ items: { label: string; value: string; color: string }[] }> = ({ items }) => (
   <div style={{ display: "flex", gap: 60, marginTop: 50 }}>
     {items.map((item, i) => (
       <div key={i} style={{ textAlign: "center" }}>
-        <div style={{ fontSize: 56, fontWeight: 900, color: item.color }}>{item.value}</div>
-        <div style={{ fontSize: 16, color: DIM, marginTop: 8 }}>{item.label}</div>
+        <div style={{ fontSize: 56, fontWeight: 900, color: item.color, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>{item.value}</div>
+        <div style={{ fontSize: 16, color: "#aaa", marginTop: 8, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>{item.label}</div>
       </div>
     ))}
   </div>
@@ -70,16 +76,17 @@ const MetricRow: React.FC<{ items: { label: string; value: string; color: string
 
 const TableRow: React.FC<{
   cols: string[]; colors?: string[]; bold?: boolean; bg?: string;
-}> = ({ cols, colors, bold = false, bg = "transparent" }) => (
+}> = ({ cols, colors, bold = false, bg = "rgba(0,0,0,0.3)" }) => (
   <div style={{
-    display: "flex", background: bg, borderBottom: "1px solid #1e1e3a",
-    padding: "14px 0",
+    display: "flex", background: bg, borderBottom: "1px solid rgba(255,255,255,0.1)",
+    padding: "14px 0", backdropFilter: "blur(4px)",
   }}>
     {cols.map((col, i) => (
       <div key={i} style={{
         flex: i === 0 ? 2 : 1, fontSize: 20, fontWeight: bold ? 700 : 400,
-        color: colors?.[i] || (i === 0 ? WHITE : DIM),
+        color: colors?.[i] || (i === 0 ? WHITE : "#aaa"),
         textAlign: i === 0 ? "left" : "center",
+        textShadow: "0 2px 10px rgba(0,0,0,0.5)",
       }}>{col}</div>
     ))}
   </div>
@@ -88,13 +95,13 @@ const TableRow: React.FC<{
 /* ─── MAIN COMPOSITION ─── */
 export const PayPalPitch: React.FC = () => {
   return (
-    <AbsoluteFill style={{ background: BG }}>
+    <AbsoluteFill style={{ background: "#000" }}>
       <Audio src={staticFile("vo-paypal-pitch.mp3")} volume={1} />
 
-      {/* Scene 1: Title (0–5s) */}
-      <SceneWrap from={0} dur={150}>
+      {/* Scene 1: Title (0-5s) */}
+      <BGScene from={0} dur={150} bg="bg-cityscape.png">
         <FadeIn delay={5}>
-          <div style={{ fontSize: 18, fontWeight: 600, letterSpacing: 4, textTransform: "uppercase", color: PP_GOLD, marginBottom: 30 }}>Strategic Partnership Proposal</div>
+          <div style={{ fontSize: 18, fontWeight: 600, letterSpacing: 4, textTransform: "uppercase", color: PP_GOLD, marginBottom: 30, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>Strategic Partnership Proposal</div>
         </FadeIn>
         <FadeIn delay={15}>
           <Title size={68}>PayPal × Silverwings</Title>
@@ -104,18 +111,18 @@ export const PayPalPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={55}>
           <div style={{ marginTop: 40, display: "flex", gap: 30 }}>
-            <div style={{ padding: "8px 24px", background: "rgba(0,112,186,0.2)", border: "1px solid rgba(0,112,186,0.4)", borderRadius: 99, color: PP_BLUE, fontSize: 15, fontWeight: 600 }}>
+            <div style={{ padding: "8px 24px", background: "rgba(0,112,186,0.2)", border: "1px solid rgba(0,112,186,0.4)", borderRadius: 99, color: PP_BLUE, fontSize: 15, fontWeight: 600, backdropFilter: "blur(10px)" }}>
               Exclusive Partnership
             </div>
-            <div style={{ padding: "8px 24px", background: "rgba(255,196,57,0.15)", border: "1px solid rgba(255,196,57,0.3)", borderRadius: 99, color: PP_GOLD, fontSize: 15, fontWeight: 600 }}>
+            <div style={{ padding: "8px 24px", background: "rgba(255,196,57,0.15)", border: "1px solid rgba(255,196,57,0.3)", borderRadius: 99, color: PP_GOLD, fontSize: 15, fontWeight: 600, backdropFilter: "blur(10px)" }}>
               24+ Products
             </div>
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 2: The Opportunity (5–12s) */}
-      <SceneWrap from={150} dur={210}>
+      {/* Scene 2: What We Are (5-12s) */}
+      <BGScene from={150} dur={210} bg="bg-warm.png">
         <Label>What We Are</Label>
         <FadeIn delay={5}>
           <Title size={48}>Not one company.<br/>A venture foundry.</Title>
@@ -130,10 +137,10 @@ export const PayPalPitch: React.FC = () => {
         <FadeIn delay={55}>
           <Sub>Open banking auto-billing is LIVE: DWP award detected → invoice generated → Pay in 3 link sent. Zero human touch.</Sub>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 3: Silverwings Core (12–20s) */}
-      <SceneWrap from={360} dur={240}>
+      {/* Scene 3: Silverwings Core (12-20s) */}
+      <BGScene from={360} dur={240} bg="bg-data.png" overlay="rgba(0,0,0,0.7)">
         <Label>Revenue Engine 1 — Live Now</Label>
         <FadeIn delay={5}>
           <Title size={52}>Silverwings Benefits</Title>
@@ -150,14 +157,14 @@ export const PayPalPitch: React.FC = () => {
           </div>
         </FadeIn>
         <FadeIn delay={65}>
-          <div style={{ marginTop: 25, fontSize: 20, color: PP_GOLD, fontWeight: 600, textAlign: "center" }}>
+          <div style={{ marginTop: 25, fontSize: 20, color: PP_GOLD, fontWeight: 600, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             ITV matches every £1 we spend on TV. Pay in 3 is on every advert.
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 4: The Cascade (20–27s) */}
-      <SceneWrap from={600} dur={210}>
+      {/* Scene 4: The Cascade (20-27s) */}
+      <BGScene from={600} dur={210} bg="bg-ocean.png">
         <Label>The Cascade Effect</Label>
         <FadeIn delay={5}>
           <Title size={44}>One client. Three PayPal transactions.</Title>
@@ -170,24 +177,24 @@ export const PayPalPitch: React.FC = () => {
               { benefit: "Council Tax", fee: "£150", color: PP_GOLD },
             ].map((item, i) => (
               <React.Fragment key={i}>
-                {i > 0 && <div style={{ fontSize: 36, color: DIM }}>→</div>}
-                <div style={{ textAlign: "center", background: "rgba(255,255,255,0.03)", border: "1px solid #1e1e3a", borderRadius: 16, padding: "20px 30px" }}>
-                  <div style={{ fontSize: 36, fontWeight: 900, color: item.color }}>{item.fee}</div>
-                  <div style={{ fontSize: 14, color: DIM, marginTop: 6 }}>{item.benefit}</div>
+                {i > 0 && <div style={{ fontSize: 36, color: "#aaa" }}>→</div>}
+                <div style={{ textAlign: "center", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 16, padding: "20px 30px", backdropFilter: "blur(10px)" }}>
+                  <div style={{ fontSize: 36, fontWeight: 900, color: item.color, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>{item.fee}</div>
+                  <div style={{ fontSize: 14, color: "#ccc", marginTop: 6 }}>{item.benefit}</div>
                 </div>
               </React.Fragment>
             ))}
           </div>
         </FadeIn>
         <FadeIn delay={55}>
-          <div style={{ marginTop: 30, fontSize: 24, fontWeight: 700, color: WHITE, textAlign: "center" }}>
+          <div style={{ marginTop: 30, fontSize: 24, fontWeight: 700, color: WHITE, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             = £1,880 per client through PayPal. Zero incremental CAC.
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 5: B2B SaaS Stack (27–35s) */}
-      <SceneWrap from={810} dur={240}>
+      {/* Scene 5: B2B SaaS (27-35s) */}
+      <BGScene from={810} dur={240} bg="bg-data.png" overlay="rgba(0,0,0,0.7)">
         <Label>Revenue Engine 2 — SaaS Subscriptions</Label>
         <FadeIn delay={5}>
           <Title size={48}>Recurring Revenue =<br/>Recurring PayPal Fees</Title>
@@ -204,10 +211,10 @@ export const PayPalPitch: React.FC = () => {
         <FadeIn delay={55}>
           <Sub>Every subscription renewal. Every month. Forever. No seasonal dip.</Sub>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 6: Life Events Platform (35–43s) */}
-      <SceneWrap from={1050} dur={240}>
+      {/* Scene 6: Life Events (35-43s) */}
+      <BGScene from={1050} dur={240} bg="bg-warm.png">
         <Label>Revenue Engine 3 — High-Value Consumer BNPL</Label>
         <FadeIn delay={5}>
           <Title size={48}>Weddings + Funerals</Title>
@@ -217,27 +224,27 @@ export const PayPalPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={30}>
           <div style={{ display: "flex", gap: 80, marginTop: 50 }}>
-            <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 52, fontWeight: 900, color: PP_GOLD }}>£22K</div>
-              <div style={{ fontSize: 16, color: DIM }}>Average UK wedding</div>
+            <div style={{ textAlign: "center", background: "rgba(0,0,0,0.3)", borderRadius: 16, padding: "24px 30px", backdropFilter: "blur(10px)" }}>
+              <div style={{ fontSize: 52, fontWeight: 900, color: PP_GOLD, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£22K</div>
+              <div style={{ fontSize: 16, color: "#ccc" }}>Average UK wedding</div>
               <div style={{ fontSize: 14, color: GREEN, marginTop: 6 }}>Pay in 3 = £7,333/instalment</div>
             </div>
-            <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 52, fontWeight: 900, color: CYAN }}>£6.5K</div>
-              <div style={{ fontSize: 16, color: DIM }}>Average UK funeral</div>
+            <div style={{ textAlign: "center", background: "rgba(0,0,0,0.3)", borderRadius: 16, padding: "24px 30px", backdropFilter: "blur(10px)" }}>
+              <div style={{ fontSize: 52, fontWeight: 900, color: CYAN, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£6.5K</div>
+              <div style={{ fontSize: 16, color: "#ccc" }}>Average UK funeral</div>
               <div style={{ fontSize: 14, color: GREEN, marginTop: 6 }}>ZERO BNPL competitors</div>
             </div>
           </div>
         </FadeIn>
         <FadeIn delay={60}>
-          <div style={{ marginTop: 25, fontSize: 18, color: PP_GOLD, fontWeight: 600, textAlign: "center" }}>
+          <div style={{ marginTop: 25, fontSize: 18, color: PP_GOLD, fontWeight: 600, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             Not £50 trainers. Not £200 electronics. £22,000 weddings.
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 7: Volume Projections (43–51s) */}
-      <SceneWrap from={1290} dur={240}>
+      {/* Scene 7: Volume Projections (43-51s) */}
+      <BGScene from={1290} dur={240} bg="bg-cityscape.png" overlay="rgba(0,0,0,0.7)">
         <Label>PayPal Volume Projections</Label>
         <FadeIn delay={5}>
           <Title size={48}>The Compounding Effect</Title>
@@ -249,30 +256,30 @@ export const PayPalPitch: React.FC = () => {
             <TableRow cols={["Silverwings Global", "£15.0M", "£89.6M"]} colors={[WHITE, GREEN, PP_GOLD]} />
             <TableRow cols={["B2B SaaS Stack", "£3.8M", "£11.3M"]} colors={[WHITE, GREEN, PP_GOLD]} />
             <TableRow cols={["Life Events Platform", "£55.6M", "£268M"]} colors={[WHITE, GREEN, PP_GOLD]} />
-            <TableRow cols={["TOTAL", "£368M", "£1.49B"]} colors={[WHITE, GREEN, PP_GOLD]} bold bg="rgba(0,112,186,0.1)" />
+            <TableRow cols={["TOTAL", "£368M", "£1.49B"]} colors={[WHITE, GREEN, PP_GOLD]} bold bg="rgba(0,112,186,0.15)" />
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 8: PayPal Revenue (51–58s) */}
-      <SceneWrap from={1530} dur={210}>
+      {/* Scene 8: PayPal Revenue (51-58s) */}
+      <BGScene from={1530} dur={210} bg="bg-data.png">
         <Label>What PayPal Earns</Label>
         <FadeIn delay={5}>
           <Title size={44}>Lower Rate. Higher Revenue.</Title>
         </FadeIn>
         <FadeIn delay={25}>
           <div style={{ display: "flex", gap: 80, marginTop: 50 }}>
-            <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 18, color: DIM, marginBottom: 10 }}>Without Partnership</div>
-              <div style={{ fontSize: 48, fontWeight: 900, color: RED }}>£10.7M</div>
-              <div style={{ fontSize: 16, color: DIM }}>2027 at standard 2.9%</div>
-              <div style={{ fontSize: 14, color: DIM }}>on lower volume</div>
+            <div style={{ textAlign: "center", background: "rgba(0,0,0,0.3)", borderRadius: 16, padding: "24px 30px", backdropFilter: "blur(10px)" }}>
+              <div style={{ fontSize: 18, color: "#aaa", marginBottom: 10 }}>Without Partnership</div>
+              <div style={{ fontSize: 48, fontWeight: 900, color: RED, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£10.7M</div>
+              <div style={{ fontSize: 16, color: "#aaa" }}>2027 at standard 2.9%</div>
+              <div style={{ fontSize: 14, color: "#aaa" }}>on lower volume</div>
             </div>
-            <div style={{ fontSize: 36, color: DIM, alignSelf: "center" }}>vs</div>
-            <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 18, color: DIM, marginBottom: 10 }}>With Partnership (1.5%)</div>
-              <div style={{ fontSize: 48, fontWeight: 900, color: GREEN }}>£22.4M</div>
-              <div style={{ fontSize: 16, color: DIM }}>2028 at partnership rate</div>
+            <div style={{ fontSize: 36, color: "#aaa", alignSelf: "center" }}>vs</div>
+            <div style={{ textAlign: "center", background: "rgba(0,0,0,0.3)", borderRadius: 16, padding: "24px 30px", backdropFilter: "blur(10px)" }}>
+              <div style={{ fontSize: 18, color: "#aaa", marginBottom: 10 }}>With Partnership (1.5%)</div>
+              <div style={{ fontSize: 48, fontWeight: 900, color: GREEN, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£22.4M</div>
+              <div style={{ fontSize: 16, color: "#aaa" }}>2028 at partnership rate</div>
               <div style={{ fontSize: 14, color: GREEN }}>on 4.6× the volume</div>
             </div>
           </div>
@@ -280,10 +287,10 @@ export const PayPalPitch: React.FC = () => {
         <FadeIn delay={55}>
           <Sub>That's not a discount. That's an investment with a guaranteed return.</Sub>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 9: ITV Co-Fund (58–65s) */}
-      <SceneWrap from={1740} dur={210}>
+      {/* Scene 9: ITV Co-Fund (58-65s) */}
+      <BGScene from={1740} dur={210} bg="bg-cityscape.png">
         <Label>The ITV Multiplier</Label>
         <FadeIn delay={5}>
           <Title size={44}>Pay in 3 on National TV</Title>
@@ -296,10 +303,10 @@ export const PayPalPitch: React.FC = () => {
               { label: "Total Airtime", value: "£1M", color: PP_GOLD },
             ].map((item, i) => (
               <React.Fragment key={i}>
-                {i > 0 && <div style={{ fontSize: 36, color: DIM }}>+</div>}
-                <div style={{ textAlign: "center", background: "rgba(255,255,255,0.03)", border: "1px solid #1e1e3a", borderRadius: 16, padding: "20px 30px" }}>
-                  <div style={{ fontSize: 40, fontWeight: 900, color: item.color }}>{item.value}</div>
-                  <div style={{ fontSize: 14, color: DIM, marginTop: 6 }}>{item.label}</div>
+                {i > 0 && <div style={{ fontSize: 36, color: "#aaa" }}>+</div>}
+                <div style={{ textAlign: "center", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 16, padding: "20px 30px", backdropFilter: "blur(10px)" }}>
+                  <div style={{ fontSize: 40, fontWeight: 900, color: item.color, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>{item.value}</div>
+                  <div style={{ fontSize: 14, color: "#ccc", marginTop: 6 }}>{item.label}</div>
                 </div>
               </React.Fragment>
             ))}
@@ -308,10 +315,10 @@ export const PayPalPitch: React.FC = () => {
         <FadeIn delay={50}>
           <Sub>6 months of daytime TV. "Pay in 3" in every advert. The PayPal logo on ITV.</Sub>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 10: The Constellation (65–73s) */}
-      <SceneWrap from={1950} dur={240}>
+      {/* Scene 10: The Constellation (65-73s) */}
+      <BGScene from={1950} dur={240} bg="bg-constellation.png" overlay="rgba(0,0,0,0.55)">
         <Label>Not One Merchant — A Constellation</Label>
         <FadeIn delay={5}>
           <Title size={44}>Every Star Wires PayPal</Title>
@@ -330,23 +337,23 @@ export const PayPalPitch: React.FC = () => {
               { name: "Rigel", type: "Analytics", color: PP_BLUE },
             ].map((item, i) => (
               <FadeIn key={i} delay={20 + i * 8}>
-                <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid #1e1e3a", borderRadius: 12, padding: "14px 18px", textAlign: "center" }}>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: item.color }}>{item.name}</div>
-                  <div style={{ fontSize: 12, color: DIM, marginTop: 4 }}>{item.type}</div>
+                <div style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 12, padding: "14px 18px", textAlign: "center", backdropFilter: "blur(10px)" }}>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: item.color, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>{item.name}</div>
+                  <div style={{ fontSize: 12, color: "#aaa", marginTop: 4 }}>{item.type}</div>
                 </div>
               </FadeIn>
             ))}
           </div>
         </FadeIn>
         <FadeIn delay={80}>
-          <div style={{ marginTop: 25, fontSize: 18, color: PP_GOLD, fontWeight: 600, textAlign: "center" }}>
+          <div style={{ marginTop: 25, fontSize: 18, color: PP_GOLD, fontWeight: 600, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             Saiph auto-wires PayPal into every new venture at machine speed.
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 11: The Ask (73–80s) */}
-      <SceneWrap from={2190} dur={210}>
+      {/* Scene 11: The Ask (73-80s) */}
+      <BGScene from={2190} dur={210} bg="bg-earth.png" overlay="rgba(0,0,0,0.55)">
         <Label>The Partnership</Label>
         <FadeIn delay={10}>
           <Title size={56}>Global Exclusivity</Title>
@@ -360,18 +367,18 @@ export const PayPalPitch: React.FC = () => {
               { text: "Projected volume: £368M (2027) → £1.49B (2028)", color: CYAN },
             ].map((item, i) => (
               <FadeIn key={i} delay={30 + i * 12}>
-                <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "14px 0", borderBottom: "1px solid #1e1e3a" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "14px 0", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
                   <div style={{ width: 8, height: 8, borderRadius: 4, background: item.color, flexShrink: 0 }} />
-                  <div style={{ fontSize: 20, color: WHITE }}>{item.text}</div>
+                  <div style={{ fontSize: 20, color: WHITE, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>{item.text}</div>
                 </div>
               </FadeIn>
             ))}
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* Scene 12: Close (80–87s) */}
-      <SceneWrap from={2400} dur={210}>
+      {/* Scene 12: Close (80-87s) */}
+      <BGScene from={2400} dur={210} bg="bg-ocean.png">
         <FadeIn delay={10}>
           <Title size={52}>PayPal × Silverwings<br/>Venture Foundry</Title>
         </FadeIn>
@@ -383,11 +390,11 @@ export const PayPalPitch: React.FC = () => {
           ]} />
         </FadeIn>
         <FadeIn delay={55}>
-          <div style={{ marginTop: 50, fontSize: 20, fontStyle: "italic", color: "#c0c0c0", letterSpacing: 1 }}>
+          <div style={{ marginTop: 50, fontSize: 20, fontStyle: "italic", color: "#c0c0c0", letterSpacing: 1, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             No food, no dream. No dream, no food.
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
     </AbsoluteFill>
   );
 };

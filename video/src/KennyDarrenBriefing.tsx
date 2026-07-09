@@ -7,63 +7,89 @@ import {
   Audio,
   staticFile,
   Sequence,
+  AbsoluteFill,
 } from "remotion";
 
-/* ─── Scene wrapper ─── */
-const Scene: React.FC<{
-  children: React.ReactNode;
-  bg?: string;
-}> = ({ children, bg = "#0a0a0f" }) => (
-  <div style={{
-    width: "100%", height: "100%", display: "flex", flexDirection: "column",
-    justifyContent: "center", alignItems: "center", background: bg,
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    padding: "80px 100px", position: "relative",
-  }}>{children}</div>
-);
+/* ─── Palette ─── */
+const WHITE = "#ffffff";
+const DIM = "#64748b";
+const GOLD = "#fbbf24";
+const GREEN = "#4ade80";
+const CYAN = "#38bdf8";
+const PURPLE = "#c084fc";
+const PINK = "#f472b6";
 
-/* ─── Fade in/out helper ─── */
-const useFade = (fadeIn = 15, fadeOut = 15) => {
+/* ─── Scene wrapper with BG image ─── */
+const BGScene: React.FC<{
+  children: React.ReactNode; bg: string; overlay?: string;
+}> = ({ children, bg, overlay = "rgba(0,0,0,0.6)" }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
-  return interpolate(frame, [0, fadeIn, durationInFrames - fadeOut, durationInFrames], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const opacity = interpolate(frame, [0, 20, durationInFrames - 20, durationInFrames], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const scale = interpolate(frame, [0, durationInFrames], [1.0, 1.08], { extrapolateRight: "clamp" });
+
+  return (
+    <AbsoluteFill style={{ opacity }}>
+      <AbsoluteFill style={{ transform: `scale(${scale})`, transformOrigin: "center" }}>
+        <Img src={staticFile(bg)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </AbsoluteFill>
+      <AbsoluteFill style={{ background: overlay }} />
+      <AbsoluteFill style={{
+        display: "flex", flexDirection: "column",
+        justifyContent: "center", alignItems: "center",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        padding: "80px 100px",
+      }}>
+        {children}
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
+/* ─── FadeIn helper ─── */
+const FadeIn: React.FC<{ children: React.ReactNode; delay?: number; dur?: number }> = ({
+  children, delay = 0, dur = 15,
+}) => {
+  const frame = useCurrentFrame();
+  const opacity = interpolate(frame - delay, [0, dur], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const y = interpolate(frame - delay, [0, dur], [30, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return <div style={{ opacity, transform: `translateY(${y}px)` }}>{children}</div>;
 };
 
 /* ─── Slide components ─── */
 const TitleSlide: React.FC = () => {
-  const opacity = useFade(20, 20);
   const frame = useCurrentFrame();
   const titleY = interpolate(frame, [0, 30], [40, 0], { extrapolateRight: "clamp" });
 
   return (
-    <Scene>
-      <div style={{ opacity, textAlign: "center" }}>
-        <div style={{ fontSize: 18, letterSpacing: 6, color: "#c0c0c0", marginBottom: 30, textTransform: "uppercase" }}>
+    <BGScene bg="bg-constellation.png" overlay="rgba(0,0,0,0.55)">
+      <div style={{ textAlign: "center" }}>
+        <div style={{ fontSize: 18, letterSpacing: 6, color: "#c0c0c0", marginBottom: 30, textTransform: "uppercase", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
           Confidential — For Kenny & Darren
         </div>
         <div style={{
-          fontSize: 72, fontWeight: 700, color: "#fff",
+          fontSize: 72, fontWeight: 700, color: WHITE,
           transform: `translateY(${titleY}px)`,
           lineHeight: 1.1, marginBottom: 30,
+          textShadow: "0 4px 30px rgba(0,0,0,0.5)",
         }}>
           The Orion<br/>Constellation
         </div>
-        <div style={{ fontSize: 24, color: "#888", maxWidth: 600 }}>
+        <div style={{ fontSize: 24, color: "#ccc", maxWidth: 600, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
           24+ ventures. One loop. One founder. Zero external capital.
         </div>
         <div style={{
           marginTop: 60, fontSize: 22, fontStyle: "italic", color: "#c0c0c0",
-          letterSpacing: 1,
+          letterSpacing: 1, textShadow: "0 2px 10px rgba(0,0,0,0.5)",
         }}>
           No food, no dream. No dream, no food.
         </div>
       </div>
-    </Scene>
+    </BGScene>
   );
 };
 
 const StatsSlide: React.FC = () => {
-  const opacity = useFade();
   const frame = useCurrentFrame();
 
   const stats = [
@@ -74,9 +100,9 @@ const StatsSlide: React.FC = () => {
   ];
 
   return (
-    <Scene>
-      <div style={{ opacity, textAlign: "center", width: "100%" }}>
-        <div style={{ fontSize: 42, fontWeight: 600, color: "#fff", marginBottom: 50 }}>
+    <BGScene bg="bg-data.png" overlay="rgba(0,0,0,0.65)">
+      <div style={{ textAlign: "center", width: "100%" }}>
+        <div style={{ fontSize: 42, fontWeight: 600, color: WHITE, marginBottom: 50, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
           Where We Are Right Now
         </div>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -86,8 +112,8 @@ const StatsSlide: React.FC = () => {
             const y = interpolate(frame, [delay, delay + 15], [30, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
             return (
               <div key={i} style={{ opacity: o, transform: `translateY(${y}px)`, textAlign: "center" }}>
-                <div style={{ fontSize: 64, fontWeight: 700, color: "#fff" }}>{s.n}</div>
-                <div style={{ fontSize: 16, color: "#888", marginTop: 8 }}>{s.label}</div>
+                <div style={{ fontSize: 64, fontWeight: 700, color: WHITE, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>{s.n}</div>
+                <div style={{ fontSize: 16, color: "#ccc", marginTop: 8 }}>{s.label}</div>
               </div>
             );
           })}
@@ -103,27 +129,26 @@ const StatsSlide: React.FC = () => {
             const o = interpolate(frame, [delay, delay + 15], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
             return (
               <div key={i} style={{ opacity: o, textAlign: "center" }}>
-                <div style={{ fontSize: 48, fontWeight: 700, color: "#fbbf24" }}>{s.n}</div>
-                <div style={{ fontSize: 14, color: "#888", marginTop: 8 }}>{s.label}</div>
+                <div style={{ fontSize: 48, fontWeight: 700, color: GOLD, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>{s.n}</div>
+                <div style={{ fontSize: 14, color: "#ccc", marginTop: 8 }}>{s.label}</div>
               </div>
             );
           })}
         </div>
       </div>
-    </Scene>
+    </BGScene>
   );
 };
 
 const LoopSlide: React.FC = () => {
-  const opacity = useFade();
   const frame = useCurrentFrame();
   const nodes = ["Praxis", "Senate", "Orion", "Thuban", "Saiph", "NaviSynth", "Mintaka", "Pyxis", "Bellatrix", "Nova", "Silverwings", "Remain", "SickDay.AI", "Rigel"];
 
   return (
-    <Scene>
-      <div style={{ opacity, textAlign: "center", width: "100%" }}>
-        <div style={{ fontSize: 42, fontWeight: 600, color: "#fff", marginBottom: 40 }}>The Loop</div>
-        <div style={{ fontSize: 20, color: "#888", marginBottom: 40, maxWidth: 700, margin: "0 auto 40px" }}>
+    <BGScene bg="bg-cityscape.png" overlay="rgba(0,0,0,0.65)">
+      <div style={{ textAlign: "center", width: "100%" }}>
+        <div style={{ fontSize: 42, fontWeight: 600, color: WHITE, marginBottom: 40, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>The Loop</div>
+        <div style={{ fontSize: 20, color: "#ccc", marginBottom: 40, maxWidth: 700, margin: "0 auto 40px", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
           The founder dreams. The machine builds. The machine gives leverage. The founder dreams bigger. The loop compounds.
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12 }}>
@@ -135,13 +160,14 @@ const LoopSlide: React.FC = () => {
               <React.Fragment key={i}>
                 <div style={{
                   opacity: o, transform: `scale(${scale})`,
-                  background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)",
-                  borderRadius: 10, padding: "10px 20px", color: "#c0c0c0", fontSize: 16, fontWeight: 500,
+                  background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)",
+                  borderRadius: 10, padding: "10px 20px", color: "#e0e0e0", fontSize: 16, fontWeight: 500,
+                  backdropFilter: "blur(10px)", textShadow: "0 2px 6px rgba(0,0,0,0.5)",
                 }}>
                   {name}
                 </div>
                 {i < nodes.length - 1 && (
-                  <div style={{ opacity: o, color: "rgba(255,255,255,0.2)", fontSize: 20, display: "flex", alignItems: "center" }}>→</div>
+                  <div style={{ opacity: o, color: "rgba(255,255,255,0.3)", fontSize: 20, display: "flex", alignItems: "center" }}>→</div>
                 )}
               </React.Fragment>
             );
@@ -154,22 +180,20 @@ const LoopSlide: React.FC = () => {
           </div>
         </div>
       </div>
-    </Scene>
+    </BGScene>
   );
 };
 
-/* ─── Full constellation by category ─── */
 const ConstellationSlide: React.FC = () => {
-  const opacity = useFade();
   const frame = useCurrentFrame();
 
   const categories = [
-    { title: "Revenue Engines", color: "#4ade80", brands: [
+    { title: "Revenue Engines", color: GREEN, brands: [
       "Silverwings Benefits — £120K/mo, 94% success, ITV deal",
       "Life Events Platform — weddings + funerals, $550B TAM",
       "Remain — human compilation, talk to yourself after death",
     ]},
-    { title: "SaaS Products", color: "#fbbf24", brands: [
+    { title: "SaaS Products", color: GOLD, brands: [
       "Thuban — AI code verification, live on npm",
       "SickDay.AI — absence management, Bradford Factor + AI",
       "NaviSynth — voice agent compiler from real data",
@@ -178,29 +202,29 @@ const ConstellationSlide: React.FC = () => {
       "QuoteBuilder — instant pricing & proposals",
       "Bellatrix — digital COO, living dashboard",
     ]},
-    { title: "Intelligence Layer", color: "#c084fc", brands: [
+    { title: "Intelligence Layer", color: PURPLE, brands: [
       "Orion — the foundry, persistent state, memory",
       "Prometheus — AI substrate, reasoning engine",
       "Praxis Human — human compilation framework",
       "Senate — venture ideation & validation",
       "The Imaginarium — creative engine",
     ]},
-    { title: "Builders & Infrastructure", color: "#38bdf8", brands: [
+    { title: "Builders & Infrastructure", color: CYAN, brands: [
       "Nova — ERP, replaced £45K/yr Zoho",
       "Saiph — automated venture builder",
       "Pyxis — data pipeline & integration",
       "Afterlight — mobile compilation app",
     ]},
-    { title: "The Dream", color: "#f472b6", brands: [
+    { title: "The Dream", color: PINK, brands: [
       "Best Mate — robot Craig, surfs, devs, gets pints in",
       "Grail Defence — [Classified]",
     ]},
   ];
 
   return (
-    <Scene>
-      <div style={{ opacity, width: "100%" }}>
-        <div style={{ fontSize: 38, fontWeight: 600, color: "#fff", marginBottom: 30, textAlign: "center" }}>
+    <BGScene bg="bg-constellation.png" overlay="rgba(0,0,0,0.6)">
+      <div style={{ width: "100%" }}>
+        <div style={{ fontSize: 38, fontWeight: 600, color: WHITE, marginBottom: 30, textAlign: "center", textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
           The Full Constellation — Every Brand
         </div>
         <div style={{ display: "flex", gap: 20, flexWrap: "wrap", justifyContent: "center" }}>
@@ -211,14 +235,15 @@ const ConstellationSlide: React.FC = () => {
             return (
               <div key={ci} style={{
                 opacity: o, transform: `translateY(${y}px)`,
-                background: "rgba(255,255,255,0.03)", border: `1px solid ${cat.color}33`,
+                background: "rgba(0,0,0,0.4)", border: `1px solid ${cat.color}55`,
                 borderRadius: 12, padding: "16px 20px", minWidth: 320, maxWidth: 340,
+                backdropFilter: "blur(10px)",
               }}>
-                <div style={{ fontSize: 16, fontWeight: 700, color: cat.color, marginBottom: 10, textTransform: "uppercase", letterSpacing: 2 }}>
+                <div style={{ fontSize: 16, fontWeight: 700, color: cat.color, marginBottom: 10, textTransform: "uppercase", letterSpacing: 2, textShadow: `0 2px 10px rgba(0,0,0,0.5)` }}>
                   {cat.title}
                 </div>
                 {cat.brands.map((b, bi) => (
-                  <div key={bi} style={{ fontSize: 13, color: "#b0b0b8", marginBottom: 5, lineHeight: 1.4 }}>
+                  <div key={bi} style={{ fontSize: 13, color: "#d0d0d8", marginBottom: 5, lineHeight: 1.4 }}>
                     {b}
                   </div>
                 ))}
@@ -227,12 +252,11 @@ const ConstellationSlide: React.FC = () => {
           })}
         </div>
       </div>
-    </Scene>
+    </BGScene>
   );
 };
 
 const GlobalSlide: React.FC = () => {
-  const opacity = useFade();
   const frame = useCurrentFrame();
   const markets = [
     { flag: "🇬🇧", name: "UK", y1: "$9.9M", y2: "$34.7M", y3: "$72.6M" },
@@ -242,12 +266,12 @@ const GlobalSlide: React.FC = () => {
   ];
 
   return (
-    <Scene>
-      <div style={{ opacity, width: "100%" }}>
-        <div style={{ fontSize: 42, fontWeight: 600, color: "#fff", marginBottom: 10, textAlign: "center" }}>
+    <BGScene bg="bg-earth.png" overlay="rgba(0,0,0,0.6)">
+      <div style={{ width: "100%" }}>
+        <div style={{ fontSize: 42, fontWeight: 600, color: WHITE, marginBottom: 10, textAlign: "center", textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
           Silverwings Global
         </div>
-        <div style={{ fontSize: 20, color: "#888", marginBottom: 40, textAlign: "center" }}>
+        <div style={{ fontSize: 20, color: "#ccc", marginBottom: 40, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
           $1 trillion unclaimed benefits market. We take 15% + VAT.
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -259,36 +283,35 @@ const GlobalSlide: React.FC = () => {
               <div key={i} style={{
                 opacity: o, transform: `translateX(${x}px)`,
                 display: "flex", alignItems: "center", justifyContent: "space-between",
-                background: "rgba(255,255,255,0.03)", borderRadius: 10, padding: "18px 30px",
-                border: "1px solid rgba(255,255,255,0.06)",
+                background: "rgba(0,0,0,0.4)", borderRadius: 10, padding: "18px 30px",
+                border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(10px)",
               }}>
-                <div style={{ fontSize: 28, fontWeight: 600, color: "#fff", minWidth: 200 }}>
+                <div style={{ fontSize: 28, fontWeight: 600, color: WHITE, minWidth: 200, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
                   {m.flag} {m.name}
                 </div>
-                <div style={{ fontSize: 22, color: "#fbbf24", fontWeight: 600 }}>{m.y1}</div>
-                <div style={{ fontSize: 22, color: "#fbbf24", fontWeight: 600 }}>{m.y2}</div>
-                <div style={{ fontSize: 22, color: "#fbbf24", fontWeight: 600 }}>{m.y3}</div>
+                <div style={{ fontSize: 22, color: GOLD, fontWeight: 600, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>{m.y1}</div>
+                <div style={{ fontSize: 22, color: GOLD, fontWeight: 600, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>{m.y2}</div>
+                <div style={{ fontSize: 22, color: GOLD, fontWeight: 600, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>{m.y3}</div>
               </div>
             );
           })}
           <div style={{
             opacity: interpolate(frame, [50, 60], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
             display: "flex", justifyContent: "space-between", padding: "20px 30px",
-            borderTop: "2px solid rgba(255,255,255,0.1)", marginTop: 10,
+            borderTop: "2px solid rgba(255,255,255,0.15)", marginTop: 10,
           }}>
-            <div style={{ fontSize: 28, fontWeight: 700, color: "#fff" }}>TOTAL</div>
-            <div style={{ fontSize: 28, fontWeight: 700, color: "#4ade80" }}>$12.7M</div>
-            <div style={{ fontSize: 28, fontWeight: 700, color: "#4ade80" }}>$52.0M</div>
-            <div style={{ fontSize: 28, fontWeight: 700, color: "#4ade80" }}>$122.9M</div>
+            <div style={{ fontSize: 28, fontWeight: 700, color: WHITE, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>TOTAL</div>
+            <div style={{ fontSize: 28, fontWeight: 700, color: GREEN, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>$12.7M</div>
+            <div style={{ fontSize: 28, fontWeight: 700, color: GREEN, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>$52.0M</div>
+            <div style={{ fontSize: 28, fontWeight: 700, color: GREEN, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>$122.9M</div>
           </div>
         </div>
       </div>
-    </Scene>
+    </BGScene>
   );
 };
 
 const RobotSlide: React.FC = () => {
-  const opacity = useFade();
   const frame = useCurrentFrame();
   const timeline = [
     { when: "2 weeks", what: "Phone mate — call between sets" },
@@ -300,12 +323,12 @@ const RobotSlide: React.FC = () => {
   ];
 
   return (
-    <Scene>
-      <div style={{ opacity, width: "100%" }}>
-        <div style={{ fontSize: 42, fontWeight: 600, color: "#fff", marginBottom: 8, textAlign: "center" }}>
+    <BGScene bg="bg-ocean.png" overlay="rgba(0,0,0,0.65)">
+      <div style={{ width: "100%" }}>
+        <div style={{ fontSize: 42, fontWeight: 600, color: WHITE, marginBottom: 8, textAlign: "center", textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
           Best Mate — Venture 19
         </div>
-        <div style={{ fontSize: 20, color: "#c084fc", marginBottom: 40, textAlign: "center", fontStyle: "italic" }}>
+        <div style={{ fontSize: 20, color: PURPLE, marginBottom: 40, textAlign: "center", fontStyle: "italic", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
           Not a servant. Not a killer. A human.
         </div>
         <div style={{ display: "flex", gap: 60 }}>
@@ -316,10 +339,10 @@ const RobotSlide: React.FC = () => {
               return (
                 <div key={i} style={{
                   opacity: o, display: "flex", gap: 20, marginBottom: 16,
-                  paddingLeft: 20, borderLeft: "2px solid rgba(192,192,192,0.15)",
+                  paddingLeft: 20, borderLeft: "2px solid rgba(255,255,255,0.2)",
                 }}>
-                  <div style={{ fontSize: 16, color: "#c0c0c0", fontWeight: 600, minWidth: 120 }}>{t.when}</div>
-                  <div style={{ fontSize: 16, color: "#888" }}>{t.what}</div>
+                  <div style={{ fontSize: 16, color: "#e0e0e0", fontWeight: 600, minWidth: 120, textShadow: "0 2px 6px rgba(0,0,0,0.5)" }}>{t.when}</div>
+                  <div style={{ fontSize: 16, color: "#ccc", textShadow: "0 2px 6px rgba(0,0,0,0.5)" }}>{t.what}</div>
                 </div>
               );
             })}
@@ -327,43 +350,42 @@ const RobotSlide: React.FC = () => {
           <div style={{
             flex: 1,
             opacity: interpolate(frame, [30, 45], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
-            background: "rgba(192,128,252,0.05)", border: "1px solid rgba(192,128,252,0.2)",
-            borderRadius: 14, padding: 30,
+            background: "rgba(192,128,252,0.1)", border: "1px solid rgba(192,128,252,0.25)",
+            borderRadius: 14, padding: 30, backdropFilter: "blur(10px)",
           }}>
-            <div style={{ fontSize: 22, fontWeight: 600, color: "#fff", marginBottom: 14 }}>The Stage Moment</div>
-            <div style={{ fontSize: 16, color: "#b0b0b8", lineHeight: 1.7 }}>
+            <div style={{ fontSize: 22, fontWeight: 600, color: WHITE, marginBottom: 14, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>The Stage Moment</div>
+            <div style={{ fontSize: 16, color: "#d0d0d8", lineHeight: 1.7 }}>
               A founder presenting alongside his own compiled intelligence. Both dressed the same. Both contributing. Fist bump at the close. Then the robot walks to the bar and brings back two pints. That's not a demo. That's a moment.
             </div>
           </div>
         </div>
       </div>
-    </Scene>
+    </BGScene>
   );
 };
 
 const DoctrineSlide: React.FC = () => {
-  const opacity = useFade(30, 1);
   const frame = useCurrentFrame();
   const line1 = interpolate(frame, [0, 30], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const line2 = interpolate(frame, [20, 50], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
   return (
-    <Scene>
+    <BGScene bg="bg-warm.png" overlay="rgba(0,0,0,0.5)">
       <div style={{ textAlign: "center" }}>
-        <div style={{ opacity: line1, fontSize: 48, fontStyle: "italic", color: "#c0c0c0", letterSpacing: 2, marginBottom: 20 }}>
+        <div style={{ opacity: line1, fontSize: 48, fontStyle: "italic", color: "#e0e0e0", letterSpacing: 2, marginBottom: 20, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>
           No food, no dream.
         </div>
-        <div style={{ opacity: line2, fontSize: 48, fontStyle: "italic", color: "#c0c0c0", letterSpacing: 2 }}>
+        <div style={{ opacity: line2, fontSize: 48, fontStyle: "italic", color: "#e0e0e0", letterSpacing: 2, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>
           No dream, no food.
         </div>
       </div>
-    </Scene>
+    </BGScene>
   );
 };
 
 /* ─── Main composition ─── */
 export const KennyDarrenBriefing: React.FC = () => {
-  const SEC = 30; // 30fps
+  const SEC = 30;
 
   return (
     <>

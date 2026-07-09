@@ -1,11 +1,10 @@
 import React from "react";
 import {
-  AbsoluteFill, Audio, useCurrentFrame, useVideoConfig,
+  AbsoluteFill, Audio, Img, useCurrentFrame, useVideoConfig,
   interpolate, Sequence, staticFile,
 } from "remotion";
 
 /* ─── Palette ─── */
-const BG = "#0a0a1a";
 const CYAN = "#00f6ff";
 const GREEN = "#00ff88";
 const GOLD = "#fbbf24";
@@ -27,17 +26,27 @@ const FadeIn: React.FC<{ children: React.ReactNode; delay?: number; dur?: number
   return <div style={{ opacity, transform: `translateY(${y}px)` }}>{children}</div>;
 };
 
-const SceneWrap: React.FC<{
-  children: React.ReactNode; from: number; dur: number; fadeIn?: number; fadeOut?: number;
-}> = ({ children, from, dur, fadeIn = 15, fadeOut = 15 }) => {
+const BGScene: React.FC<{
+  children: React.ReactNode; from: number; dur: number;
+  bg: string; overlay?: string; fadeIn?: number; fadeOut?: number;
+}> = ({ children, from, dur, bg, overlay = "rgba(0,0,0,0.6)", fadeIn = 15, fadeOut = 15 }) => {
   const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [from, from + fadeIn, from + dur - fadeOut, from + dur], [0, 1, 1, 0], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp",
-  });
+  const opacity = interpolate(frame, [0, fadeIn, dur - fadeOut, dur], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const scale = interpolate(frame, [0, dur], [1.0, 1.08], { extrapolateRight: "clamp" });
   return (
     <Sequence from={from} durationInFrames={dur}>
-      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", opacity, flexDirection: "column" }}>
-        {children}
+      <AbsoluteFill style={{ opacity }}>
+        <AbsoluteFill style={{ transform: `scale(${scale})`, transformOrigin: "center" }}>
+          <Img src={staticFile(bg)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        </AbsoluteFill>
+        <AbsoluteFill style={{ background: overlay }} />
+        <AbsoluteFill style={{
+          display: "flex", flexDirection: "column",
+          justifyContent: "center", alignItems: "center",
+          fontFamily: "'Inter', system-ui, sans-serif", padding: "80px 100px",
+        }}>
+          {children}
+        </AbsoluteFill>
       </AbsoluteFill>
     </Sequence>
   );
@@ -64,7 +73,7 @@ const Star: React.FC<{
         background: color, boxShadow: `0 0 ${20 * glow}px ${color}88, 0 0 ${40 * glow}px ${color}44`,
       }} />
       <div style={{ fontSize: 13, fontWeight: 700, color, whiteSpace: "nowrap", textShadow: `0 0 10px ${color}66` }}>{name}</div>
-      <div style={{ fontSize: 9, color: DIM, whiteSpace: "nowrap" }}>{role}</div>
+      <div style={{ fontSize: 9, color: "#aaa", whiteSpace: "nowrap" }}>{role}</div>
     </div>
   );
 };
@@ -84,18 +93,18 @@ const Line: React.FC<{
   );
 };
 
-/* ─── Venture card for showcase scenes ─── */
+/* ─── Venture card ─── */
 const VentureCard: React.FC<{
   name: string; role: string; detail: string; color: string; delay: number;
 }> = ({ name, role, detail, color, delay }) => (
   <FadeIn delay={delay}>
     <div style={{
-      padding: "20px 28px", background: `${color}0a`, border: `1px solid ${color}33`,
-      borderRadius: 14, minWidth: 280, maxWidth: 380,
+      padding: "20px 28px", background: "rgba(0,0,0,0.4)", border: `1px solid ${color}44`,
+      borderRadius: 14, minWidth: 280, maxWidth: 380, backdropFilter: "blur(10px)",
     }}>
-      <div style={{ fontSize: 24, fontWeight: 800, color, marginBottom: 4 }}>{name}</div>
+      <div style={{ fontSize: 24, fontWeight: 800, color, marginBottom: 4, textShadow: `0 2px 10px rgba(0,0,0,0.5)` }}>{name}</div>
       <div style={{ fontSize: 14, color: SILVER, fontWeight: 600, marginBottom: 8, textTransform: "uppercase", letterSpacing: 2 }}>{role}</div>
-      <div style={{ fontSize: 15, color: DIM, lineHeight: 1.4 }}>{detail}</div>
+      <div style={{ fontSize: 15, color: "#ccc", lineHeight: 1.4 }}>{detail}</div>
     </div>
   </FadeIn>
 );
@@ -122,77 +131,45 @@ const ventures = [
   { name: "Grail", role: "Classified", color: SILVER },
 ];
 
-/* Star positions in constellation ring */
 const cx = 960, cy = 480, rx = 360, ry = 280;
 const starPositions = Array.from({ length: 18 }, (_, i) => {
   const angle = (i / 18) * Math.PI * 2 - Math.PI / 2;
   return { x: cx + Math.cos(angle) * rx, y: cy + Math.sin(angle) * ry };
 });
 
-/*
- * VO timing (~166s = 4980 frames @ 30fps, padded to 5100):
- *
- * 0-300 (0-10s):     Opening — "Twelve months ago..."
- * 300-900 (10-30s):  Constellation map — all 18 ventures appear as stars
- * 900-1500 (30-50s): Revenue engines — Silverwings + Nova + NaviSynth + Thuban
- * 1500-2100 (50-70s): Intelligence — Bellatrix + Praxis + Prometheus + Senate
- * 2100-2550 (70-85s): Builders — Orion + Saiph + Mintaka + Pyxis + Rigel + SickDay + QB
- * 2550-3150 (85-105s): The Imaginarium — the grail (emotional peak)
- * 3150-3750 (105-125s): The loop — self-replicating venture factory
- * 3750-4350 (125-145s): Financial projections + zero dilution
- * 4350-4800 (145-160s): "The question" — closing statement
- * 4800-5100 (160-170s): Doctrine stamp — hold
- */
-
 export const Constellation: React.FC = () => {
   const frame = useCurrentFrame();
 
   return (
-    <AbsoluteFill style={{ backgroundColor: BG, fontFamily: "'Inter', system-ui, sans-serif" }}>
+    <AbsoluteFill style={{ background: "#000" }}>
       <Audio src={staticFile("vo-constellation.mp3")} />
 
-      {/* Subtle star field background */}
-      <div style={{
-        position: "absolute", inset: 0,
-        backgroundImage: `radial-gradient(1px 1px at 100px 200px, ${WHITE}15, transparent),
-          radial-gradient(1px 1px at 400px 100px, ${WHITE}10, transparent),
-          radial-gradient(1px 1px at 700px 400px, ${WHITE}12, transparent),
-          radial-gradient(1px 1px at 1200px 150px, ${WHITE}08, transparent),
-          radial-gradient(1px 1px at 1500px 300px, ${WHITE}15, transparent),
-          radial-gradient(1px 1px at 1800px 500px, ${WHITE}10, transparent),
-          radial-gradient(1px 1px at 300px 600px, ${WHITE}12, transparent),
-          radial-gradient(1px 1px at 900px 700px, ${WHITE}08, transparent),
-          radial-gradient(1px 1px at 1600px 800px, ${WHITE}15, transparent),
-          radial-gradient(1px 1px at 500px 900px, ${WHITE}10, transparent)`,
-      }} />
-
-      {/* ═══ Scene 1: 0-300 — Opening ═══ */}
-      <SceneWrap from={0} dur={300}>
+      {/* Scene 1: 0-300 — Opening */}
+      <BGScene from={0} dur={300} bg="bg-constellation.png" overlay="rgba(0,0,0,0.5)">
         <FadeIn>
-          <div style={{ fontSize: 22, color: DIM, letterSpacing: 8, textTransform: "uppercase", marginBottom: 24 }}>
+          <div style={{ fontSize: 22, color: "#ccc", letterSpacing: 8, textTransform: "uppercase", marginBottom: 24, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             Twelve months. One founder.
           </div>
         </FadeIn>
         <FadeIn delay={30}>
           <div style={{ display: "flex", alignItems: "baseline", gap: 20 }}>
             <span style={{ fontSize: 160, fontWeight: 900, color: CYAN, textShadow: `0 0 80px ${CYAN}44`, lineHeight: 1 }}>18</span>
-            <span style={{ fontSize: 60, fontWeight: 900, color: WHITE }}>Ventures</span>
+            <span style={{ fontSize: 60, fontWeight: 900, color: WHITE, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>Ventures</span>
           </div>
         </FadeIn>
         <FadeIn delay={60}>
-          <div style={{ fontSize: 28, color: DIM, marginTop: 16 }}>400,000 lines of production code</div>
+          <div style={{ fontSize: 28, color: "#ccc", marginTop: 16, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>400,000 lines of production code</div>
         </FadeIn>
         <FadeIn delay={85}>
-          <div style={{ fontSize: 32, color: GREEN, fontWeight: 700, marginTop: 12 }}>
+          <div style={{ fontSize: 32, color: GREEN, fontWeight: 700, marginTop: 12, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             A living constellation of AI-powered businesses
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* ═══ Scene 2: 300-900 — Constellation Map ═══ */}
-      <SceneWrap from={300} dur={600} fadeIn={20} fadeOut={20}>
+      {/* Scene 2: 300-900 — Constellation Map */}
+      <BGScene from={300} dur={600} bg="bg-constellation.png" overlay="rgba(0,0,0,0.45)" fadeIn={20} fadeOut={20}>
         <div style={{ position: "relative", width: 1920, height: 960 }}>
-          {/* Connection lines */}
           {starPositions.map((pos, i) => {
             const next = starPositions[(i + 1) % 18];
             return (
@@ -202,7 +179,6 @@ export const Constellation: React.FC = () => {
               />
             );
           })}
-          {/* Cross connections to centre (Imaginarium) */}
           {[0, 3, 6, 9, 12, 15].map((i) => (
             <Line key={`cross-${i}`}
               x1={starPositions[i].x} y1={starPositions[i].y}
@@ -210,7 +186,6 @@ export const Constellation: React.FC = () => {
               color={GOLD} delay={i * 8 + 40}
             />
           ))}
-          {/* Stars */}
           {starPositions.map((pos, i) => {
             const v = ventures[i] || ventures[0];
             return (
@@ -221,17 +196,16 @@ export const Constellation: React.FC = () => {
               />
             );
           })}
-          {/* Centre: Imaginarium */}
           <Star name="The Imaginarium" role="The Grail" color={GOLD}
             x={cx} y={cy} delay={130} size={16}
           />
         </div>
-      </SceneWrap>
+      </BGScene>
 
-      {/* ═══ Scene 3: 900-1500 — Revenue Engines ═══ */}
-      <SceneWrap from={900} dur={600}>
+      {/* Scene 3: 900-1500 — Revenue Engines */}
+      <BGScene from={900} dur={600} bg="bg-cityscape.png" overlay="rgba(0,0,0,0.65)">
         <FadeIn>
-          <div style={{ fontSize: 18, color: CYAN, letterSpacing: 6, marginBottom: 24 }}>THE REVENUE ENGINES</div>
+          <div style={{ fontSize: 18, color: CYAN, letterSpacing: 6, marginBottom: 24, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>THE REVENUE ENGINES</div>
         </FadeIn>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, maxWidth: 800 }}>
           <VentureCard name="Silverwings" role="The Cash Cow" color={GREEN} delay={15}
@@ -243,12 +217,12 @@ export const Constellation: React.FC = () => {
           <VentureCard name="Thuban" role="Immune System" color={PURPLE} delay={90}
             detail="Scanning code for hallucinations before they ship. 69 rules, 10 languages. Live on npm." />
         </div>
-      </SceneWrap>
+      </BGScene>
 
-      {/* ═══ Scene 4: 1500-2100 — Intelligence Layer ═══ */}
-      <SceneWrap from={1500} dur={600}>
+      {/* Scene 4: 1500-2100 — Intelligence Layer */}
+      <BGScene from={1500} dur={600} bg="bg-data.png" overlay="rgba(0,0,0,0.65)">
         <FadeIn>
-          <div style={{ fontSize: 18, color: GOLD, letterSpacing: 6, marginBottom: 24 }}>THE INTELLIGENCE LAYER</div>
+          <div style={{ fontSize: 18, color: GOLD, letterSpacing: 6, marginBottom: 24, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>THE INTELLIGENCE LAYER</div>
         </FadeIn>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, maxWidth: 800 }}>
           <VentureCard name="Bellatrix" role="Digital COO" color={ORANGE} delay={15}
@@ -260,12 +234,12 @@ export const Constellation: React.FC = () => {
           <VentureCard name="The Senate" role="Governance" color={SILVER} delay={90}
             detail="Every decision evaluated against the founder's doctrine. The constitutional layer." />
         </div>
-      </SceneWrap>
+      </BGScene>
 
-      {/* ═══ Scene 5: 2100-2550 — The Builders ═══ */}
-      <SceneWrap from={2100} dur={450}>
+      {/* Scene 5: 2100-2550 — The Builders */}
+      <BGScene from={2100} dur={450} bg="bg-ocean.png" overlay="rgba(0,0,0,0.6)">
         <FadeIn>
-          <div style={{ fontSize: 18, color: GREEN, letterSpacing: 6, marginBottom: 24 }}>THE BUILDERS & THE WATCHERS</div>
+          <div style={{ fontSize: 18, color: GREEN, letterSpacing: 6, marginBottom: 24, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>THE BUILDERS & THE WATCHERS</div>
         </FadeIn>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "center", maxWidth: 1000 }}>
           {[
@@ -279,19 +253,19 @@ export const Constellation: React.FC = () => {
           ].map((v, i) => (
             <FadeIn key={i} delay={15 + i * 15}>
               <div style={{
-                padding: "16px 24px", background: `${v.color}0a`, border: `1px solid ${v.color}33`,
-                borderRadius: 12, minWidth: 180, textAlign: "center",
+                padding: "16px 24px", background: "rgba(0,0,0,0.4)", border: `1px solid ${v.color}44`,
+                borderRadius: 12, minWidth: 180, textAlign: "center", backdropFilter: "blur(10px)",
               }}>
-                <div style={{ fontSize: 20, fontWeight: 800, color: v.color }}>{v.name}</div>
-                <div style={{ fontSize: 12, color: DIM, marginTop: 4 }}>{v.role}</div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: v.color, textShadow: `0 2px 10px rgba(0,0,0,0.5)` }}>{v.name}</div>
+                <div style={{ fontSize: 12, color: "#ccc", marginTop: 4 }}>{v.role}</div>
               </div>
             </FadeIn>
           ))}
         </div>
-      </SceneWrap>
+      </BGScene>
 
-      {/* ═══ Scene 6: 2550-3150 — The Imaginarium ═══ */}
-      <SceneWrap from={2550} dur={600} fadeIn={25} fadeOut={25}>
+      {/* Scene 6: 2550-3150 — The Imaginarium */}
+      <BGScene from={2550} dur={600} bg="bg-warm.png" overlay="rgba(0,0,0,0.55)" fadeIn={25} fadeOut={25}>
         <FadeIn>
           <div style={{
             width: 120, height: 120, borderRadius: "50%", marginBottom: 24,
@@ -299,7 +273,6 @@ export const Constellation: React.FC = () => {
             border: `2px solid ${GOLD}66`,
             display: "flex", alignItems: "center", justifyContent: "center",
             boxShadow: `0 0 60px ${GOLD}33, 0 0 120px ${GOLD}11`,
-            animation: "pulse 3s ease-in-out infinite",
           }}>
             <div style={{ fontSize: 48 }}>&#10022;</div>
           </div>
@@ -310,28 +283,29 @@ export const Constellation: React.FC = () => {
           </div>
         </FadeIn>
         <FadeIn delay={45}>
-          <div style={{ fontSize: 22, color: SILVER, letterSpacing: 4, marginTop: 8 }}>THE GRAIL</div>
+          <div style={{ fontSize: 22, color: SILVER, letterSpacing: 4, marginTop: 8, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>THE GRAIL</div>
         </FadeIn>
         <FadeIn delay={70}>
           <div style={{
             maxWidth: 700, textAlign: "center", marginTop: 24,
             fontSize: 22, color: WHITE, lineHeight: 1.6, fontWeight: 300,
+            textShadow: "0 2px 10px rgba(0,0,0,0.5)",
           }}>
             A system that preserves a human being's reasoning, taste, judgement, and voice.
             <br /><span style={{ color: GOLD, fontWeight: 600 }}>Beyond biological failure.</span>
           </div>
         </FadeIn>
         <FadeIn delay={110}>
-          <div style={{ fontSize: 18, color: DIM, marginTop: 20, fontStyle: "italic" }}>
+          <div style={{ fontSize: 18, color: "#ccc", marginTop: 20, fontStyle: "italic", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             The dream that everything else funds.
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* ═══ Scene 7: 3150-3750 — The Loop ═══ */}
-      <SceneWrap from={3150} dur={600}>
+      {/* Scene 7: 3150-3750 — The Loop */}
+      <BGScene from={3150} dur={600} bg="bg-constellation.png" overlay="rgba(0,0,0,0.55)">
         <FadeIn>
-          <div style={{ fontSize: 42, fontWeight: 900, color: WHITE, textAlign: "center", lineHeight: 1.3, maxWidth: 800 }}>
+          <div style={{ fontSize: 42, fontWeight: 900, color: WHITE, textAlign: "center", lineHeight: 1.3, maxWidth: 800, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>
             This is not a portfolio of startups.
           </div>
         </FadeIn>
@@ -353,13 +327,13 @@ export const Constellation: React.FC = () => {
               { label: "Founder dreams bigger", color: PURPLE },
             ].map((step, i) => (
               <React.Fragment key={i}>
-                {i > 0 && <span style={{ fontSize: 20, color: DIM }}>→</span>}
+                {i > 0 && <span style={{ fontSize: 20, color: "#aaa" }}>→</span>}
                 <FadeIn delay={80 + i * 15}>
                   <div style={{
-                    padding: "14px 24px", background: `${step.color}12`,
-                    border: `1px solid ${step.color}44`, borderRadius: 10,
+                    padding: "14px 24px", background: "rgba(0,0,0,0.4)",
+                    border: `1px solid ${step.color}55`, borderRadius: 10, backdropFilter: "blur(10px)",
                   }}>
-                    <span style={{ fontSize: 18, fontWeight: 700, color: step.color }}>{step.label}</span>
+                    <span style={{ fontSize: 18, fontWeight: 700, color: step.color, textShadow: `0 2px 10px rgba(0,0,0,0.5)` }}>{step.label}</span>
                   </div>
                 </FadeIn>
               </React.Fragment>
@@ -368,14 +342,14 @@ export const Constellation: React.FC = () => {
           </div>
         </FadeIn>
         <FadeIn delay={150}>
-          <div style={{ fontSize: 28, color: GREEN, fontWeight: 700, marginTop: 30 }}>
+          <div style={{ fontSize: 28, color: GREEN, fontWeight: 700, marginTop: 30, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             The loop compounds.
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* ═══ Scene 8: 3750-4350 — Financial Projections ═══ */}
-      <SceneWrap from={3750} dur={600}>
+      {/* Scene 8: 3750-4350 — Financial Projections */}
+      <BGScene from={3750} dur={600} bg="bg-data.png" overlay="rgba(0,0,0,0.6)">
         <FadeIn>
           <div style={{ display: "flex", gap: 60, marginBottom: 16 }}>
             {[
@@ -386,79 +360,73 @@ export const Constellation: React.FC = () => {
             ].map((stat, i) => (
               <FadeIn key={i} delay={10 + i * 12}>
                 <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: 48, fontWeight: 900, color: stat.color }}>{stat.value}</div>
-                  <div style={{ fontSize: 14, color: DIM }}>{stat.label}</div>
+                  <div style={{ fontSize: 48, fontWeight: 900, color: stat.color, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>{stat.value}</div>
+                  <div style={{ fontSize: 14, color: "#ccc" }}>{stat.label}</div>
                 </div>
               </FadeIn>
             ))}
           </div>
         </FadeIn>
-        {/* Revenue bars */}
         <FadeIn delay={70}>
           <div style={{ display: "flex", gap: 50, marginTop: 20, alignItems: "flex-end" }}>
             {[
               { year: "Year 1", amount: "$12.7M", height: 60, color: BLUE },
               { year: "Year 2", amount: "$52M", height: 150, color: PURPLE },
               { year: "Year 3", amount: "$123M", height: 280, color: GREEN },
-            ].map((yr, i) => {
-              const barH = interpolate(frame - 3820 - i * 15, [0, 40], [0, yr.height], {
-                extrapolateLeft: "clamp", extrapolateRight: "clamp",
-              });
-              return (
-                <FadeIn key={i} delay={80 + i * 15}>
-                  <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <div style={{ fontSize: 28, fontWeight: 900, color: yr.color, marginBottom: 8 }}>{yr.amount}</div>
-                    <div style={{
-                      width: 100, height: barH, minHeight: 4,
-                      background: `linear-gradient(180deg, ${yr.color}, ${yr.color}66)`,
-                      borderRadius: "8px 8px 0 0", boxShadow: `0 0 30px ${yr.color}33`,
-                    }} />
-                    <div style={{ fontSize: 16, color: DIM, marginTop: 10, fontWeight: 600 }}>{yr.year}</div>
-                  </div>
-                </FadeIn>
-              );
-            })}
+            ].map((yr, i) => (
+              <FadeIn key={i} delay={80 + i * 15}>
+                <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                  <div style={{ fontSize: 28, fontWeight: 900, color: yr.color, marginBottom: 8, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>{yr.amount}</div>
+                  <div style={{
+                    width: 100, height: yr.height,
+                    background: `linear-gradient(180deg, ${yr.color}, ${yr.color}66)`,
+                    borderRadius: "8px 8px 0 0", boxShadow: `0 0 30px ${yr.color}33`,
+                  }} />
+                  <div style={{ fontSize: 16, color: "#ccc", marginTop: 10, fontWeight: 600 }}>{yr.year}</div>
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </FadeIn>
         <FadeIn delay={160}>
           <div style={{ display: "flex", gap: 40, marginTop: 24 }}>
-            <div style={{ padding: "10px 20px", background: `${GREEN}12`, border: `1px solid ${GREEN}33`, borderRadius: 8 }}>
-              <span style={{ fontSize: 16, fontWeight: 700, color: GREEN }}>100% founder owned</span>
-            </div>
-            <div style={{ padding: "10px 20px", background: `${CYAN}12`, border: `1px solid ${CYAN}33`, borderRadius: 8 }}>
-              <span style={{ fontSize: 16, fontWeight: 700, color: CYAN }}>Zero dilution</span>
-            </div>
-            <div style={{ padding: "10px 20px", background: `${GOLD}12`, border: `1px solid ${GOLD}33`, borderRadius: 8 }}>
-              <span style={{ fontSize: 16, fontWeight: 700, color: GOLD }}>Cashflow funded</span>
-            </div>
+            {[
+              { label: "100% founder owned", color: GREEN },
+              { label: "Zero dilution", color: CYAN },
+              { label: "Cashflow funded", color: GOLD },
+            ].map((badge, i) => (
+              <div key={i} style={{ padding: "10px 20px", background: "rgba(0,0,0,0.4)", border: `1px solid ${badge.color}44`, borderRadius: 8, backdropFilter: "blur(10px)" }}>
+                <span style={{ fontSize: 16, fontWeight: 700, color: badge.color, textShadow: `0 2px 10px rgba(0,0,0,0.5)` }}>{badge.label}</span>
+              </div>
+            ))}
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* ═══ Scene 9: 4350-4800 — The Question ═══ */}
-      <SceneWrap from={4350} dur={450}>
+      {/* Scene 9: 4350-4800 — The Question */}
+      <BGScene from={4350} dur={450} bg="bg-earth.png" overlay="rgba(0,0,0,0.5)">
         <FadeIn>
-          <div style={{ fontSize: 20, color: DIM, letterSpacing: 6, marginBottom: 20 }}>NO VENTURE CAPITAL. NO BOARD SEATS.</div>
+          <div style={{ fontSize: 20, color: "#ccc", letterSpacing: 6, marginBottom: 20, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>NO VENTURE CAPITAL. NO BOARD SEATS.</div>
         </FadeIn>
         <FadeIn delay={25}>
-          <div style={{ fontSize: 54, fontWeight: 900, color: WHITE, textAlign: "center", lineHeight: 1.3 }}>
+          <div style={{ fontSize: 54, fontWeight: 900, color: WHITE, textAlign: "center", lineHeight: 1.3, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>
             The question was never<br />
             <span style={{ color: CYAN }}>&ldquo;can one person build this?&rdquo;</span>
           </div>
         </FadeIn>
         <FadeIn delay={60}>
-          <div style={{ fontSize: 54, fontWeight: 900, color: WHITE, textAlign: "center", marginTop: 16 }}>
+          <div style={{ fontSize: 54, fontWeight: 900, color: WHITE, textAlign: "center", marginTop: 16, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>
             The question is<br />
             <span style={{ color: GREEN }}>&ldquo;can anyone else keep up?&rdquo;</span>
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
 
-      {/* ═══ Scene 10: 4800-5100 — Doctrine ═══ */}
-      <SceneWrap from={4800} dur={300} fadeOut={1}>
+      {/* Scene 10: 4800-5100 — Doctrine */}
+      <BGScene from={4800} dur={300} bg="bg-constellation.png" overlay="rgba(0,0,0,0.45)" fadeOut={1}>
         <FadeIn dur={30}>
           <div style={{
-            fontSize: 52, fontWeight: 300, color: SILVER,
+            fontSize: 52, fontWeight: 300, color: "#e0e0e0",
             textAlign: "center", lineHeight: 1.5, letterSpacing: 2,
             textShadow: `0 0 40px ${SILVER}33`,
           }}>
@@ -474,11 +442,11 @@ export const Constellation: React.FC = () => {
           }} />
         </FadeIn>
         <FadeIn delay={70}>
-          <div style={{ fontSize: 14, color: DIM, marginTop: 20, letterSpacing: 4 }}>
+          <div style={{ fontSize: 14, color: "#ccc", marginTop: 20, letterSpacing: 4, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             THE ORION CONSTELLATION
           </div>
         </FadeIn>
-      </SceneWrap>
+      </BGScene>
     </AbsoluteFill>
   );
 };
