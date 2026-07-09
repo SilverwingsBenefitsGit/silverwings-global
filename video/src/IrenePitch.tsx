@@ -93,8 +93,8 @@ export const IrenePitch: React.FC = () => {
       <BGScene from={360} dur={660} bg="bg-warm.png" overlay="rgba(0,0,0,0.65)">
         <FadeIn delay={10}>
           <div style={{ maxWidth: 700, fontSize: 28, color: WARM, textAlign: "center", lineHeight: 1.8, fontStyle: "italic", textShadow: "0 2px 20px rgba(0,0,0,0.6)" }}>
-            "Two years ago, Dad got his diagnosis.<br/>
-            Dementia and bladder cancer.<br/><br/>
+            "Two years ago, you believed in me<br/>
+            when nobody else would.<br/><br/>
             You handed me £15,000<br/>
             and said keep going."
           </div>
