@@ -6,9 +6,18 @@ import { KennyDarrenBriefing } from "./KennyDarrenBriefing";
 import { MerciaPitch } from "./MerciaPitch";
 import { PayPalPitch } from "./PayPalPitch";
 import { IrenePitch } from "./IrenePitch";
+import { MerciaThuban } from "./MerciaThuban";
 
 export const Root: React.FC = () => (
   <>
+    <Composition
+      id="MerciaThuban"
+      component={MerciaThuban}
+      durationInFrames={1800}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
     <Composition
       id="GlobalExpansion"
       component={GlobalExpansion}
