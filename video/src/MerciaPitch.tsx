@@ -131,8 +131,35 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 3: The Insight (10-16s) */}
-      <BGScene from={300} dur={180} bg="bg-ocean.png">
+      {/* Scene 2b: Pension Credit Breakthrough (10-16s) */}
+      <BGScene from={300} dur={180} bg="bg-warm.png" overlay="rgba(0,20,0,0.65)">
+        <Label>Breaking News</Label>
+        <FadeIn delay={5}>
+          <Title size={48}>Pension Credit — First Claim Won</Title>
+        </FadeIn>
+        <FadeIn delay={20}>
+          <Sub>Second benefit line launched. First claim submitted, won, and invoice paid — all in 7 days.</Sub>
+        </FadeIn>
+        <FadeIn delay={40}>
+          <MetricRow items={[
+            { label: "Benefits Now Live", value: "3", color: GREEN },
+            { label: "Submission to Paid Invoice", value: "7 days", color: CYAN },
+            { label: "LTV:CAC Ratio", value: "37:1", color: GOLD },
+          ]} />
+        </FadeIn>
+        <FadeIn delay={60}>
+          <div style={{ marginTop: 20, width: "100%", maxWidth: 700 }}>
+            <TableRow cols={["Benefit", "Fee", "Eligible"]} colors={[DIM, DIM, DIM]} bold />
+            <TableRow cols={["Attendance Allowance", "£830", "100%"]} colors={[WHITE, GREEN, "#aaa"]} />
+            <TableRow cols={["Pension Credit", "£900 avg", "40% of AA clients"]} colors={[WHITE, GREEN, "#aaa"]} />
+            <TableRow cols={["Council Tax Reduction", "£150", "100% of PC clients"]} colors={[WHITE, GREEN, "#aaa"]} />
+            <TableRow cols={["Total per client", "£1,880", "From £50 CAC"]} colors={[WHITE, GOLD, GOLD]} bold />
+          </div>
+        </FadeIn>
+      </BGScene>
+
+      {/* Scene 3: The Insight (16-22s) */}
+      <BGScene from={480} dur={180} bg="bg-ocean.png">
         <Label>The Insight</Label>
         <FadeIn delay={5}>
           <Title size={48}>But the real value isn't the claims.</Title>
@@ -145,8 +172,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 4: EBITDA → ARR (16-24s) */}
-      <BGScene from={480} dur={240} bg="bg-data.png">
+      {/* Scene 4: EBITDA → ARR (22-30s) */}
+      <BGScene from={660} dur={240} bg="bg-data.png">
         <Label>The Valuation Shift</Label>
         <FadeIn delay={5}>
           <Title size={44}>EBITDA → ARR Multiples</Title>
@@ -171,8 +198,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 5: Thuban (24-34s) */}
-      <BGScene from={720} dur={300} bg="bg-data.png" overlay="rgba(0,0,0,0.7)">
+      {/* Scene 5: Thuban (30-40s) */}
+      <BGScene from={900} dur={300} bg="bg-data.png" overlay="rgba(0,0,0,0.7)">
         <Label>Spin-Out 1 — Already Live</Label>
         <FadeIn delay={5}>
           <Title size={56}>Thuban</Title>
@@ -197,8 +224,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 6: AI Sales Agents (34-44s) */}
-      <BGScene from={1020} dur={300} bg="bg-cityscape.png">
+      {/* Scene 6: AI Sales Agents (40-50s) */}
+      <BGScene from={1200} dur={300} bg="bg-cityscape.png">
         <Label>Spin-Out 2 — Production Ready</Label>
         <FadeIn delay={5}>
           <Title size={56}>AI Sales Agents</Title>
@@ -230,8 +257,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 7: SickDay.AI (44-52s) */}
-      <BGScene from={1320} dur={240} bg="bg-ocean.png">
+      {/* Scene 7: SickDay.AI (50-58s) */}
+      <BGScene from={1500} dur={240} bg="bg-ocean.png">
         <Label>Spin-Out 3 — MVP in 6 Weeks</Label>
         <FadeIn delay={5}>
           <Title size={56}>SickDay.AI</Title>
@@ -251,8 +278,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 8: Full Portfolio (52-62s) */}
-      <BGScene from={1560} dur={300} bg="bg-constellation.png" overlay="rgba(0,0,0,0.55)">
+      {/* Scene 8: Full Portfolio (58-68s) */}
+      <BGScene from={1740} dur={300} bg="bg-constellation.png" overlay="rgba(0,0,0,0.55)">
         <Label>The Full Portfolio</Label>
         <FadeIn delay={5}>
           <Title size={44}>7 SaaS Products. One Foundry.</Title>
@@ -281,8 +308,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 9: Use of Funds (62-72s) */}
-      <BGScene from={1860} dur={300} bg="bg-warm.png" overlay="rgba(0,0,0,0.7)">
+      {/* Scene 9: Use of Funds (68-78s) */}
+      <BGScene from={2040} dur={300} bg="bg-warm.png" overlay="rgba(0,0,0,0.7)">
         <Label>Use of £1M</Label>
         <FadeIn delay={5}>
           <Title size={48}>From Built to Selling</Title>
@@ -308,8 +335,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 10: Portfolio Synergy (72-80s) */}
-      <BGScene from={2160} dur={240} bg="bg-earth.png" overlay="rgba(0,0,0,0.55)">
+      {/* Scene 10: Portfolio Synergy (78-86s) */}
+      <BGScene from={2340} dur={240} bg="bg-earth.png" overlay="rgba(0,0,0,0.55)">
         <Label>Why Mercia</Label>
         <FadeIn delay={5}>
           <Title size={48}>Portfolio Synergies</Title>
@@ -333,8 +360,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 11: The Ask (80-90s) */}
-      <BGScene from={2400} dur={300} bg="bg-cityscape.png" overlay="rgba(0,0,0,0.65)">
+      {/* Scene 11: The Ask (86-96s) */}
+      <BGScene from={2580} dur={300} bg="bg-cityscape.png" overlay="rgba(0,0,0,0.65)">
         <Label>The Ask</Label>
         <FadeIn delay={10}>
           <Title size={72}>£1,000,000</Title>
@@ -367,8 +394,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 12: Close (90-97s) */}
-      <BGScene from={2700} dur={210} bg="bg-constellation.png" overlay="rgba(0,0,0,0.5)">
+      {/* Scene 12: Close (96-103s) */}
+      <BGScene from={2880} dur={210} bg="bg-constellation.png" overlay="rgba(0,0,0,0.5)">
         <FadeIn delay={10}>
           <Title size={56}>Silverwings<br/>Venture Foundry</Title>
         </FadeIn>

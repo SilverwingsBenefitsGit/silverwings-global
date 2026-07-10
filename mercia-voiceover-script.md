@@ -1,5 +1,5 @@
 # Mercia Pitch — Voiceover Script for Cartesia Gemma
-# Duration: ~97 seconds (2910 frames @ 30fps)
+# Duration: ~103 seconds (3090 frames @ 30fps)
 # Voice: Gemma, British female, professional but warm
 # Tone: Confident, authoritative, not salesy
 
@@ -9,7 +9,10 @@ Silverwings Venture Foundry. A confidential investment overview for Mercia and t
 ## Scene 2: The Origin (4–10s)
 We started by building a benefits claims business. Nine hundred and ten thousand pounds in the last twelve months. Voice AI interviews elderly clients, enhances their answers with artificial intelligence, and submits applications online. Ninety-four percent success rate. Approaching one hundred thousand pounds a month. Customer acquisition cost: forty pounds.
 
-## Scene 3: The Insight (10–16s)
+## Scene 2b: Pension Credit Breakthrough (10–16s)
+And we have just proven the cascade. Our second benefit line — Pension Credit — went live, and the first claim was submitted, won, and the invoice raised and paid, all in seven days. Three benefits are now live. Forty percent of our Attendance Allowance clients are eligible for Pension Credit, with an average fee of nine hundred pounds, plus a Council Tax Reduction claim worth another one hundred and fifty. One client, up to one thousand eight hundred and eighty pounds in fees, from a single acquisition cost of fifty pounds. That is a thirty-seven to one return.
+
+## Scene 3: The Insight (16–22s)
 But here's what we discovered. The real value isn't the claims operation. It's the technology stack we built to automate it. Every internal tool we created — the ERP we built from scratch saving forty-five thousand a year, the code scanner, the voice agents, the compliance engine — each one is a standalone SaaS product that other businesses need.
 
 ## Scene 4: EBITDA to ARR (16–24s)
@@ -33,8 +36,8 @@ The ask: one million pounds. Four hundred and fifty thousand for software develo
 ## Scene 10: Portfolio Synergies (72–80s)
 Mercia is the right partner because the value flows both ways. Thuban provides code due diligence across the portfolio. AI agents deploy to companies with SDR churn. SickDay serves every portfolio company with UK employees. And the entire operation is based in North Tyneside, creating local jobs in software development and marketing.
 
-## Scene 11: The Ask (80–90s)
-One million pounds for equity in Silverwings Venture Foundry. Year one SaaS target: five hundred thousand. Year two: two point five million. Year three: eight million. De-risked by a cashflow-positive benefits operation that's turned over nine hundred and ten thousand pounds in the last twelve months.
+## Scene 11: The Ask (86–96s)
+One million pounds for equity in Silverwings Venture Foundry. Year one SaaS target: five hundred thousand. Year two: two point five million. Year three: eight million. De-risked by a cashflow-positive benefits operation that's turned over nine hundred and ten thousand pounds in the last twelve months. Three benefits now live, with the ITV deal about to pour rocket fuel on the fire.
 
-## Scene 12: Close (90–97s)
+## Scene 12: Close (96–103s)
 Silverwings Venture Foundry. Craig Lowther, CEO and Technical Founder. Darren Cleugh, Managing Director. No food, no dream. No dream, no food.
