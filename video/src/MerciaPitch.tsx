@@ -120,13 +120,13 @@ export const MerciaPitch: React.FC = () => {
           <Title size={52}>We built a benefits business.</Title>
         </FadeIn>
         <FadeIn delay={25}>
-          <Sub>Voice AI interview → AI-enhanced answers → open banking auto-billing. Award detected → invoice sent → PayPal Pay in 3 collected. Zero human touch.</Sub>
+          <Sub>TV/Meta ad → lead → voice AI call → recording → transcript → AI code enhancement → government form auto-completed in seconds → invoice → PayPal Pay in 3. Zero human touch. We can scale at will.</Sub>
         </FadeIn>
         <FadeIn delay={45}>
           <MetricRow items={[
             { label: "Client Revenue (13mo)", value: "£809K", color: GREEN },
             { label: "Success Rate", value: "94%", color: CYAN },
-            { label: "CAC", value: "£40", color: GOLD },
+            { label: "Global Unclaimed Benefits", value: "£1T", color: GOLD },
           ]} />
         </FadeIn>
       </BGScene>
@@ -205,21 +205,21 @@ export const MerciaPitch: React.FC = () => {
           <Title size={56}>Thuban</Title>
         </FadeIn>
         <FadeIn delay={15}>
-          <Sub>AI code verification. The only scanner purpose-built for AI-generated code.</Sub>
+          <Sub>The only code scanner purpose-built for AI-generated code. 92% of development is now AI-assisted. We verify all of it.</Sub>
         </FadeIn>
         <FadeIn delay={35}>
           <div style={{ marginTop: 40, width: "100%" }}>
             <TableRow cols={["", "Status"]} colors={[DIM, CYAN]} bold />
-            <TableRow cols={["Live on npm", "✓ Published"]} colors={[WHITE, GREEN]} />
-            <TableRow cols={["Stripe payments", "✓ Wired"]} colors={[WHITE, GREEN]} />
-            <TableRow cols={["10 languages, 69 rules", "✓ Shipping"]} colors={[WHITE, GREEN]} />
-            <TableRow cols={["MCP + GitHub Action", "✓ Live"]} colors={[WHITE, GREEN]} />
-            <TableRow cols={["Investor code reports", "$299–$999"]} colors={[WHITE, GOLD]} />
+            <TableRow cols={["AI code verification", "Only player in market"]} colors={[WHITE, GREEN]} />
+            <TableRow cols={["10 languages, 69 security rules", "✓ Shipping"]} colors={[WHITE, GREEN]} />
+            <TableRow cols={["npm + Stripe + VS Code", "✓ Live & Revenue"]} colors={[WHITE, GREEN]} />
+            <TableRow cols={["MCP + GitHub Action + CI/CD", "✓ Integrated"]} colors={[WHITE, GREEN]} />
+            <TableRow cols={["More coverage than any linter", "Scanner + Verifier"]} colors={[WHITE, GOLD]} />
           </div>
         </FadeIn>
         <FadeIn delay={70}>
           <div style={{ marginTop: 30, fontSize: 20, color: GOLD, fontWeight: 600, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
-            Mercia paid for code due diligence yesterday. Thuban does it in minutes.
+            Every company building with AI needs this. That's 92% of the market.
           </div>
         </FadeIn>
       </BGScene>
@@ -282,26 +282,27 @@ export const MerciaPitch: React.FC = () => {
       <BGScene from={1740} dur={300} bg="bg-constellation.png" overlay="rgba(0,0,0,0.55)">
         <Label>The Full Portfolio</Label>
         <FadeIn delay={5}>
-          <Title size={44}>7 SaaS Products. One Foundry.</Title>
+          <Title size={44}>8 SaaS Products. One Foundry.</Title>
         </FadeIn>
         <FadeIn delay={20}>
           <div style={{ marginTop: 30, width: "100%" }}>
-            <TableRow cols={["Product", "Market", "Status", "Y3 ARR"]} colors={[DIM, DIM, DIM, DIM]} bold />
-            <TableRow cols={["Thuban", "Dev tools", "LIVE", "£2M"]} colors={[WHITE, "#aaa", GREEN, GOLD]} />
-            <TableRow cols={["AI Sales Agents", "B2B Sales", "Production", "£3M"]} colors={[WHITE, "#aaa", GREEN, GOLD]} />
-            <TableRow cols={["SickDay.AI", "HR Compliance", "6 weeks", "£2M"]} colors={[WHITE, "#aaa", CYAN, GOLD]} />
-            <TableRow cols={["Navisynth", "Voice AI", "Beta 3 wks", "£3M"]} colors={[WHITE, "#aaa", CYAN, GOLD]} />
-            <TableRow cols={["Bellatrix", "Business Intel", "Building", "£1M"]} colors={[WHITE, "#aaa", BLUE, GOLD]} />
+            <TableRow cols={["Product", "What It Does", "Status", "Y3 ARR"]} colors={[DIM, DIM, DIM, DIM]} bold />
+            <TableRow cols={["Thuban", "AI code verification", "LIVE", "£3M"]} colors={[WHITE, "#aaa", GREEN, GOLD]} />
+            <TableRow cols={["AI Sales Agents", "Autonomous lead qualification", "Production", "£3M"]} colors={[WHITE, "#aaa", GREEN, GOLD]} />
+            <TableRow cols={["SickDay.AI", "Absence compliance engine", "6 weeks", "£2M"]} colors={[WHITE, "#aaa", CYAN, GOLD]} />
+            <TableRow cols={["NaviSynth", "Voice AI testing platform", "Beta", "£3M"]} colors={[WHITE, "#aaa", CYAN, GOLD]} />
+            <TableRow cols={["Bellatrix", "Autonomous platform cartography", "Building", "£2M"]} colors={[WHITE, "#aaa", BLUE, GOLD]} />
+            <TableRow cols={["Rigel", "Self-assembling ERP builder", "Building", "£3M"]} colors={[WHITE, "#aaa", BLUE, GOLD]} />
           </div>
         </FadeIn>
         <FadeIn delay={60}>
           <div style={{ marginTop: 30, display: "flex", gap: 60 }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 48, fontWeight: 900, color: GREEN, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>£8M</div>
+              <div style={{ fontSize: 48, fontWeight: 900, color: GREEN, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>£16M</div>
               <div style={{ fontSize: 14, color: "#aaa" }}>Year 3 Combined SaaS ARR</div>
             </div>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 48, fontWeight: 900, color: GOLD, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>£80-120M</div>
+              <div style={{ fontSize: 48, fontWeight: 900, color: GOLD, textShadow: "0 4px 30px rgba(0,0,0,0.5)" }}>£160-240M</div>
               <div style={{ fontSize: 14, color: "#aaa" }}>Implied Valuation (10-15x)</div>
             </div>
           </div>
@@ -312,15 +313,15 @@ export const MerciaPitch: React.FC = () => {
       <BGScene from={2040} dur={300} bg="bg-warm.png" overlay="rgba(0,0,0,0.7)">
         <Label>Use of £1M</Label>
         <FadeIn delay={5}>
-          <Title size={48}>From Built to Selling</Title>
+          <Title size={48}>Fuel for the Rocket</Title>
         </FadeIn>
         <FadeIn delay={20}>
           <div style={{ marginTop: 40, width: "100%" }}>
-            <TableRow cols={["Category", "Amount", "Impact"]} colors={[DIM, DIM, DIM]} bold />
-            <TableRow cols={["Software Development", "£450K", "4 developers × 12 months"]} colors={[WHITE, GREEN, "#aaa"]} />
-            <TableRow cols={["Go-to-Market", "£250K", "Launch campaigns + B2B sales"]} colors={[WHITE, GREEN, "#aaa"]} />
-            <TableRow cols={["Infrastructure", "£150K", "Cloud, CI/CD, security certs"]} colors={[WHITE, GREEN, "#aaa"]} />
-            <TableRow cols={["Working Capital", "£150K", "ITV marketing bridge"]} colors={[WHITE, GREEN, "#aaa"]} />
+            <TableRow cols={["Category", "Amount", "What It Buys"]} colors={[DIM, DIM, DIM]} bold />
+            <TableRow cols={["Marketing & Acquisition", "£500K", "TV, Meta, Google — scale the CAC engine"]} colors={[WHITE, GREEN, "#aaa"]} />
+            <TableRow cols={["Dev Team + Technical Lead", "£200K", "Engineers + Kenny — ship SaaS products"]} colors={[WHITE, GREEN, "#aaa"]} />
+            <TableRow cols={["Compute & Infrastructure", "£30K", "Voice AI, hosting, CI/CD"]} colors={[WHITE, GREEN, "#aaa"]} />
+            <TableRow cols={["Buffer & Expansion", "£270K", "TV transition, overseas launch, SaaS rollout"]} colors={[WHITE, GREEN, "#aaa"]} />
           </div>
         </FadeIn>
         <FadeIn delay={50}>
@@ -330,7 +331,7 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={65}>
           <div style={{ marginTop: 12, fontSize: 20, color: CYAN, fontWeight: 600, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
-            Benefits cashflow covers operating costs. Every pound of investment goes to growth.
+            Benefits cashflow covers all operating costs. Every pound of investment goes to growth.
           </div>
         </FadeIn>
       </BGScene>
@@ -344,10 +345,10 @@ export const MerciaPitch: React.FC = () => {
         <FadeIn delay={20}>
           <div style={{ marginTop: 30, width: "100%", maxWidth: 700 }}>
             {[
-              { text: "Thuban provides code due diligence on every Mercia investment", color: GREEN },
-              { text: "AI agents deploy to any portfolio company with SDR problems", color: CYAN },
-              { text: "SickDay.AI serves every portfolio company with UK employees", color: BLUE },
-              { text: "North East based — jobs in North Tyneside", color: GOLD },
+              { text: "Thuban verifies AI-generated code across the entire Mercia portfolio", color: GREEN },
+              { text: "AI agents deploy to any portfolio company with SDR churn", color: CYAN },
+              { text: "Rigel replaces per-seat SaaS — fractional cost ERP migration", color: BLUE },
+              { text: "North East based — creating local software development jobs", color: GOLD },
             ].map((item, i) => (
               <FadeIn key={i} delay={25 + i * 15}>
                 <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "14px 0", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
@@ -369,27 +370,37 @@ export const MerciaPitch: React.FC = () => {
         <FadeIn delay={25}>
           <Sub>Equity in Silverwings Venture Foundry</Sub>
         </FadeIn>
-        <FadeIn delay={45}>
-          <div style={{ display: "flex", gap: 60, marginTop: 50 }}>
+        <FadeIn delay={40}>
+          <div style={{ display: "flex", gap: 50, marginTop: 40 }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 40, fontWeight: 900, color: GREEN, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£500K</div>
-              <div style={{ fontSize: 14, color: "#aaa" }}>Year 1 SaaS ARR</div>
+              <div style={{ fontSize: 40, fontWeight: 900, color: GREEN, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£4.5M</div>
+              <div style={{ fontSize: 14, color: "#aaa" }}>2026 Revenue</div>
             </div>
             <div style={{ fontSize: 30, color: "#aaa", alignSelf: "center" }}>→</div>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 40, fontWeight: 900, color: CYAN, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£2.5M</div>
-              <div style={{ fontSize: 14, color: "#aaa" }}>Year 2 SaaS ARR</div>
+              <div style={{ fontSize: 40, fontWeight: 900, color: CYAN, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£37M</div>
+              <div style={{ fontSize: 14, color: "#aaa" }}>2027 Revenue</div>
             </div>
             <div style={{ fontSize: 30, color: "#aaa", alignSelf: "center" }}>→</div>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 40, fontWeight: 900, color: GOLD, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£8M</div>
-              <div style={{ fontSize: 14, color: "#aaa" }}>Year 3 SaaS ARR</div>
+              <div style={{ fontSize: 40, fontWeight: 900, color: GOLD, textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>£62M</div>
+              <div style={{ fontSize: 14, color: "#aaa" }}>2028 Revenue</div>
             </div>
           </div>
         </FadeIn>
-        <FadeIn delay={70}>
-          <div style={{ marginTop: 40, fontSize: 22, color: PURPLE, fontWeight: 600, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
-            De-risked by £809K client revenue. £120K first-year survival capital — 30% repaid, no equity given. 12 staff roles replaced by AI.
+        <FadeIn delay={55}>
+          <div style={{ marginTop: 20, fontSize: 20, color: GREEN, fontWeight: 700, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
+            £104M cumulative. 89% net margin. 3 benefits. UK only.
+          </div>
+        </FadeIn>
+        <FadeIn delay={68}>
+          <div style={{ marginTop: 12, fontSize: 18, color: PURPLE, fontWeight: 600, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
+            Before overseas expansion. Before additional benefits. Before SaaS revenue. + £16M SaaS ARR by Year 3.
+          </div>
+        </FadeIn>
+        <FadeIn delay={80}>
+          <div style={{ marginTop: 12, fontSize: 18, color: "#ccc", textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
+            De-risked by £809K existing revenue. £35K/month stripped from overheads by Voice AI and automation.
           </div>
         </FadeIn>
       </BGScene>
