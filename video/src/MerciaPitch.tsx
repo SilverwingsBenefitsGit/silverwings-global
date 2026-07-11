@@ -97,14 +97,14 @@ export const MerciaPitch: React.FC = () => {
     <AbsoluteFill style={{ background: "#000" }}>
       <Audio src={staticFile("vo-mercia-pitch.mp3")} volume={1} />
 
-      {/* Scene 1: Title (0-4s) */}
-      <BGScene from={0} dur={120} bg="bg-cityscape.png">
+      {/* Scene 1: Title (0-5s) */}
+      <BGScene from={0} dur={150} bg="bg-cityscape.png">
         <Label>Confidential Investment Memo</Label>
         <FadeIn delay={10}>
           <Title size={72}>Silverwings<br/>Venture Foundry</Title>
         </FadeIn>
         <FadeIn delay={30}>
-          <Sub>AI-powered SaaS spin-out engine backed by cashflow-positive benefits operation</Sub>
+          <Sub>AI-powered SaaS spin-out engine helping people apply for complex government benefits at global scale</Sub>
         </FadeIn>
         <FadeIn delay={50}>
           <div style={{ marginTop: 40, padding: "8px 24px", background: "rgba(0,102,255,0.15)", border: "1px solid rgba(0,102,255,0.3)", borderRadius: 99, color: CYAN, fontSize: 16, fontWeight: 600, backdropFilter: "blur(10px)" }}>
@@ -113,11 +113,11 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 2: The Origin (4-10s) */}
-      <BGScene from={120} dur={180} bg="bg-warm.png">
+      {/* Scene 2: The Origin (5-12s) */}
+      <BGScene from={150} dur={210} bg="bg-warm.png">
         <Label>The Origin</Label>
         <FadeIn delay={5}>
-          <Title size={52}>We built a benefits business.</Title>
+          <Title size={52}>We support people to apply for and win complex government benefits.</Title>
         </FadeIn>
         <FadeIn delay={25}>
           <Sub>TV/Meta ad → lead → voice AI call → recording → transcript → AI code enhancement → government form auto-completed in seconds → invoice → PayPal Pay in 3. Zero human touch. We can scale at will.</Sub>
@@ -131,8 +131,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 2b: Pension Credit Breakthrough (10-16s) */}
-      <BGScene from={300} dur={180} bg="bg-warm.png" overlay="rgba(0,20,0,0.65)">
+      {/* Scene 2b: Pension Credit Breakthrough (12-20s) */}
+      <BGScene from={360} dur={240} bg="bg-warm.png" overlay="rgba(0,20,0,0.65)">
         <Label>Breaking News</Label>
         <FadeIn delay={5}>
           <Title size={48}>Pension Credit — First Claim Won</Title>
@@ -158,8 +158,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 3: The Insight (16-22s) */}
-      <BGScene from={480} dur={180} bg="bg-ocean.png">
+      {/* Scene 3: The Insight (20-26s) */}
+      <BGScene from={600} dur={180} bg="bg-ocean.png">
         <Label>The Insight</Label>
         <FadeIn delay={5}>
           <Title size={48}>But the real value isn't the claims.</Title>
@@ -172,8 +172,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 4: EBITDA → ARR (22-30s) */}
-      <BGScene from={660} dur={240} bg="bg-data.png">
+      {/* Scene 4: EBITDA → ARR (26-35s) */}
+      <BGScene from={780} dur={270} bg="bg-data.png">
         <Label>The Valuation Shift</Label>
         <FadeIn delay={5}>
           <Title size={44}>EBITDA → ARR Multiples</Title>
@@ -198,8 +198,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 5: Thuban (30-40s) */}
-      <BGScene from={900} dur={300} bg="bg-data.png" overlay="rgba(0,0,0,0.7)">
+      {/* Scene 5: Thuban (35-45s) */}
+      <BGScene from={1050} dur={300} bg="bg-data.png" overlay="rgba(0,0,0,0.7)">
         <Label>Spin-Out 1 — Already Live</Label>
         <FadeIn delay={5}>
           <Title size={56}>Thuban</Title>
@@ -224,8 +224,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 6: AI Sales Agents (40-50s) */}
-      <BGScene from={1200} dur={300} bg="bg-cityscape.png">
+      {/* Scene 6: AI Sales Agents (45-55s) */}
+      <BGScene from={1350} dur={300} bg="bg-cityscape.png">
         <Label>Spin-Out 2 — Production Ready</Label>
         <FadeIn delay={5}>
           <Title size={56}>AI Sales Agents</Title>
@@ -257,8 +257,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 7: SickDay.AI (50-58s) */}
-      <BGScene from={1500} dur={240} bg="bg-ocean.png">
+      {/* Scene 7: SickDay.AI (55-63s) */}
+      <BGScene from={1650} dur={240} bg="bg-ocean.png">
         <Label>Spin-Out 3 — MVP in 6 Weeks</Label>
         <FadeIn delay={5}>
           <Title size={56}>SickDay.AI</Title>
@@ -278,8 +278,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 8: Full Portfolio (58-68s) */}
-      <BGScene from={1740} dur={300} bg="bg-constellation.png" overlay="rgba(0,0,0,0.55)">
+      {/* Scene 8: Full Portfolio (63-76s) */}
+      <BGScene from={1890} dur={390} bg="bg-constellation.png" overlay="rgba(0,0,0,0.55)">
         <Label>The Full Portfolio</Label>
         <FadeIn delay={5}>
           <Title size={44}>8 SaaS Products. One Foundry.</Title>
@@ -309,8 +309,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 9: Use of Funds (68-78s) */}
-      <BGScene from={2040} dur={300} bg="bg-warm.png" overlay="rgba(0,0,0,0.7)">
+      {/* Scene 9: Use of Funds (76-86s) */}
+      <BGScene from={2280} dur={300} bg="bg-warm.png" overlay="rgba(0,0,0,0.7)">
         <Label>Use of £1M</Label>
         <FadeIn delay={5}>
           <Title size={48}>Fuel for the Rocket</Title>
@@ -331,13 +331,13 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
         <FadeIn delay={65}>
           <div style={{ marginTop: 12, fontSize: 20, color: CYAN, fontWeight: 600, textAlign: "center", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
-            Benefits cashflow covers all operating costs. Every pound of investment goes to growth.
+            Platform cashflow covers all operating costs. Every pound of investment goes to growth.
           </div>
         </FadeIn>
       </BGScene>
 
-      {/* Scene 10: Portfolio Synergy (78-86s) */}
-      <BGScene from={2340} dur={240} bg="bg-earth.png" overlay="rgba(0,0,0,0.55)">
+      {/* Scene 10: Portfolio Synergy (86-95s) */}
+      <BGScene from={2580} dur={270} bg="bg-earth.png" overlay="rgba(0,0,0,0.55)">
         <Label>Why Mercia</Label>
         <FadeIn delay={5}>
           <Title size={48}>Portfolio Synergies</Title>
@@ -361,8 +361,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 11: The Ask (86-96s) */}
-      <BGScene from={2580} dur={300} bg="bg-cityscape.png" overlay="rgba(0,0,0,0.65)">
+      {/* Scene 11: The Ask (95-109s) */}
+      <BGScene from={2850} dur={420} bg="bg-cityscape.png" overlay="rgba(0,0,0,0.65)">
         <Label>The Ask</Label>
         <FadeIn delay={10}>
           <Title size={72}>£1,000,000</Title>
@@ -405,8 +405,8 @@ export const MerciaPitch: React.FC = () => {
         </FadeIn>
       </BGScene>
 
-      {/* Scene 12: Close (96-103s) */}
-      <BGScene from={2880} dur={210} bg="bg-constellation.png" overlay="rgba(0,0,0,0.5)">
+      {/* Scene 12: Close (109-120s) */}
+      <BGScene from={3270} dur={330} bg="bg-constellation.png" overlay="rgba(0,0,0,0.5)">
         <FadeIn delay={10}>
           <Title size={56}>Silverwings<br/>Venture Foundry</Title>
         </FadeIn>
